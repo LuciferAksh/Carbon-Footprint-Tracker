@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Environment
+.env
+.env.local
+.env.production
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Firebase
+.firebase/
+.firebaserc
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+
+# Python virtual env
+venv/
+.venv/
+env/
+
+# Testing
+coverage/
+htmlcov/
+.coverage
+.pytest_cache/
+.nyc_output/
+
+# Build
+frontend/dist/
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*

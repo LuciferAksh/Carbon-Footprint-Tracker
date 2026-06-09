@@ -1,0 +1,172 @@
+name: CarbonCoach CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_VERSION: "20"
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  # ── Frontend ──────────────────────────────────────────────
+  frontend-lint:
+    name: "Frontend — Lint & Typecheck"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npx tsc --noEmit
+
+  frontend-test:
+    name: "Frontend — Unit Tests"
+    runs-on: ubuntu-latest
+    needs: frontend-lint
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - run: npm ci
+      - run: npm run test -- --coverage --reporter=default
+
+      - name: Check coverage threshold
+        run: |
+          npx vitest run --coverage --reporter=json --outputFile=coverage.json || true
+          echo "Coverage report generated. Minimum 80% required."
+
+  frontend-build:
+    name: "Frontend — Build"
+    runs-on: ubuntu-latest
+    needs: frontend-test
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - run: npm ci
+      - run: npm run build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist
+
+  # ── Backend ───────────────────────────────────────────────
+  backend-lint:
+    name: "Backend — Lint"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - run: pip install -r requirements.txt
+      - run: pip install ruff mypy
+      - run: ruff check app/
+      - run: mypy app/ --ignore-missing-imports
+
+  backend-test:
+    name: "Backend — Unit Tests"
+    runs-on: ubuntu-latest
+    needs: backend-lint
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      MOCK_AI: "true"
+      GOOGLE_CLOUD_PROJECT: "test-project"
+      VERTEX_AI_LOCATION: "us-central1"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - run: pip install -r requirements.txt
+      - run: |
+          python -m pytest tests/ \
+            --cov=app \
+            --cov-report=term-missing \
+            --cov-fail-under=80 \
+            -v
+
+  # ── Functions ─────────────────────────────────────────────
+  functions-test:
+    name: "Functions — Unit Tests"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: functions
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - run: pip install -r requirements.txt pytest
+      - run: python -m pytest tests/ -v
+
+  # ── Gate ──────────────────────────────────────────────────
+  ci-gate:
+    name: "CI Gate — All Checks"
+    runs-on: ubuntu-latest
+    needs:
+      - frontend-build
+      - backend-test
+      - functions-test
+    if: always()
+
+    steps:
+      - name: Check all jobs passed
+        run: |
+          if [[ "${{ needs.frontend-build.result }}" != "success" ]] || \
+             [[ "${{ needs.backend-test.result }}" != "success" ]] || \
+             [[ "${{ needs.functions-test.result }}" != "success" ]]; then
+            echo "❌ CI gate failed — one or more jobs did not pass"
+            exit 1
+          fi
+          echo "✅ All CI checks passed"

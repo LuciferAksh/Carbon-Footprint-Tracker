@@ -1,0 +1,33 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── User profiles ──
+    // Users can only read/write their own profile document
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      // ── Subcollections: logs, challenges, insights ──
+      // Same ownership rule applies to all user subcollections
+      match /logs/{logId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /challenges/{challengeId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /insights/{insightId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // ── Community aggregates ──
+    // All authenticated users can read, but only backend (admin SDK) can write
+    match /community/{doc} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+  }
+}

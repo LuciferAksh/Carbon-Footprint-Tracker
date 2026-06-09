@@ -1,0 +1,14 @@
+# CarbonCoach Backend Dependencies
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+firebase-admin>=6.2.0
+google-cloud-aiplatform>=1.38.0
+google-cloud-firestore>=2.13.0
+google-cloud-storage>=2.13.0
+pydantic[dotenv]>=2.5.0
+pydantic-settings>=2.1.0
+python-dotenv>=1.0.0
+httpx>=0.25.0
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
