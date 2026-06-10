@@ -58,3 +58,8 @@ npm-debug.log*
 carbon-coach-*.json
 *-key.json
 service-account*.json
+
+# AI assistant metadata
+graphify-out/
+.codex/
+AGENTS.md
