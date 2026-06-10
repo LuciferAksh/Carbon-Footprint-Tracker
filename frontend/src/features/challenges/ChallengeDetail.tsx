@@ -11,11 +11,18 @@ import type { Challenge } from '@/types';
 
 /** Mock challenge detail */
 const MOCK_CHALLENGE: Challenge = {
-  id: '2026-W23', title: 'Metro Week Challenge',
-  description: 'Take public transport at least 3 times this week instead of your car. The metro is fast, reliable, and saves ~4.2 kg CO₂ compared to driving.',
-  category: 'transport', difficulty: 'medium', durationDays: 7,
-  co2SavedTarget: 4.2, co2SavedActual: 1.8, progress: 43,
-  status: 'active', participants: 234,
+  id: '2026-W23',
+  title: 'Metro Week Challenge',
+  description:
+    'Take public transport at least 3 times this week instead of your car. The metro is fast, reliable, and saves ~4.2 kg CO₂ compared to driving.',
+  category: 'transport',
+  difficulty: 'medium',
+  durationDays: 7,
+  co2SavedTarget: 4.2,
+  co2SavedActual: 1.8,
+  progress: 43,
+  status: 'active',
+  participants: 234,
   tips: [
     'Try the metro during non-peak hours for a comfortable ride',
     'Use Google Maps for public transport routes — often faster than driving!',
@@ -136,7 +143,11 @@ export default function ChallengeDetail() {
 
       {/* Tips */}
       {challenge.tips.length > 0 && (
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
           <Card className="p-5 mb-4">
             <h2 className="text-sm font-semibold text-dark-300 mb-3">💡 Tips from CarbonCoach</h2>
             <ul className="space-y-2" role="list">
@@ -153,7 +164,11 @@ export default function ChallengeDetail() {
 
       {/* Complete Button */}
       {!isCompleted && (
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
           <Button
             variant="primary"
             className="w-full"

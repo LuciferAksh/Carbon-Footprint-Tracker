@@ -5,6 +5,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { MotionConfig } from 'framer-motion';
 import App from './App';
 import { AuthProvider } from '@/features/auth';
 import { ToastProvider } from '@/components/ui/Toast';
@@ -21,9 +22,24 @@ ReactDOM.createRoot(rootElement).render(
     <BrowserRouter>
       <AuthProvider>
         <ToastProvider>
-          <App />
+          <MotionConfig reducedMotion="user">
+            <App />
+          </MotionConfig>
         </ToastProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,
 );
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then((reg) => {
+        console.log('ServiceWorker registration successful with scope: ', reg.scope);
+      })
+      .catch((err) => {
+        console.error('ServiceWorker registration failed: ', err);
+      });
+  });
+}

@@ -33,10 +33,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
 
   return (
     <div className="space-y-1.5">
-      <label
-        htmlFor={selectId}
-        className="block text-sm font-medium text-dark-300"
-      >
+      <label htmlFor={selectId} className="block text-sm font-medium text-dark-300">
         {label}
       </label>
       <select

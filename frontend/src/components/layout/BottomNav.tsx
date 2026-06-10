@@ -5,7 +5,7 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Home, PlusCircle, Trophy, User } from 'lucide-react';
+import { Home, PlusCircle, Trophy, User, MessageSquare } from 'lucide-react';
 
 interface NavItem {
   path: string;
@@ -16,6 +16,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { path: '/', label: 'Home', icon: Home },
   { path: '/log', label: 'Log', icon: PlusCircle },
+  { path: '/coach', label: 'Coach', icon: MessageSquare },
   { path: '/challenges', label: 'Challenges', icon: Trophy },
   { path: '/profile', label: 'Profile', icon: User },
 ];
@@ -36,9 +37,7 @@ const BottomNav = React.memo(function BottomNav() {
       <div className="flex items-center justify-around max-w-lg mx-auto h-16">
         {navItems.map((item) => {
           const isActive =
-            item.path === '/'
-              ? location.pathname === '/'
-              : location.pathname.startsWith(item.path);
+            item.path === '/' ? location.pathname === '/' : location.pathname.startsWith(item.path);
           const Icon = item.icon;
 
           return (
@@ -60,6 +59,7 @@ const BottomNav = React.memo(function BottomNav() {
                 className={`w-5 h-5 transition-colors duration-200 ${
                   isActive ? 'text-primary-400' : 'text-dark-500 group-hover:text-dark-300'
                 }`}
+                aria-hidden="true"
               />
               <span
                 className={`text-[10px] mt-1 font-medium transition-colors duration-200 ${

@@ -6,7 +6,10 @@ resource "google_cloud_run_v2_service" "backend" {
   name     = "carboncoach-backend"
   location = var.region
 
-  depends_on = [google_project_service.apis]
+  depends_on = [
+    google_project_service.apis,
+    google_secret_manager_secret_version.maps_api_key_version
+  ]
 
   template {
     containers {
@@ -22,7 +25,27 @@ resource "google_cloud_run_v2_service" "backend" {
       }
 
       env {
+        name  = "GCP_PROJECT_ID"
+        value = var.project_id
+      }
+
+      env {
+        name  = "MOCK_AI"
+        value = "false"
+      }
+
+      env {
+        name  = "APP_ENV"
+        value = "production"
+      }
+
+      env {
         name  = "VERTEX_AI_LOCATION"
+        value = var.region
+      }
+
+      env {
+        name  = "GEMINI_LOCATION"
         value = var.region
       }
 
@@ -56,7 +79,7 @@ resource "google_cloud_run_v2_service" "backend" {
 
       startup_probe {
         http_get {
-          path = "/api/health"
+          path = "/health"
         }
         initial_delay_seconds = 5
         period_seconds        = 10

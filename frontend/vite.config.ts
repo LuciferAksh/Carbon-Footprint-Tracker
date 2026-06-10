@@ -23,7 +23,11 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id: string) {
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router')) {
+          if (
+            id.includes('node_modules/react') ||
+            id.includes('node_modules/react-dom') ||
+            id.includes('node_modules/react-router')
+          ) {
             return 'vendor-react';
           }
           if (id.includes('node_modules/chart.js') || id.includes('node_modules/react-chartjs-2')) {

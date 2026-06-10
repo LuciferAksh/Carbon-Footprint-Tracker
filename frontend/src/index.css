@@ -58,6 +58,8 @@
   --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
   --animate-count-up: count-up 1s ease-out;
   --animate-float: float 6s ease-in-out infinite;
+  --animate-aurora-slow: aurora-slow 20s ease-in-out infinite;
+  --animate-aurora-reverse: aurora-reverse 25s ease-in-out infinite;
 }
 
 /* Custom Animations */
@@ -98,6 +100,32 @@
   }
   50% {
     transform: translateY(-20px);
+  }
+}
+
+@keyframes aurora-slow {
+  0%,
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(40px, -60px) scale(1.15);
+  }
+  66% {
+    transform: translate(-30px, 30px) scale(0.9);
+  }
+}
+
+@keyframes aurora-reverse {
+  0%,
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  40% {
+    transform: translate(-60px, 50px) scale(1.1);
+  }
+  80% {
+    transform: translate(50px, -30px) scale(0.95);
   }
 }
 
@@ -162,11 +190,7 @@ body {
 }
 
 .gradient-radial {
-  background: radial-gradient(
-    ellipse at top,
-    rgba(22, 163, 74, 0.15) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(ellipse at top, rgba(22, 163, 74, 0.15) 0%, transparent 70%);
 }
 
 /* Custom Scrollbar */
@@ -196,4 +220,23 @@ body {
 /* Safe area padding for mobile */
 .safe-bottom {
   padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Accessibility: Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
 }

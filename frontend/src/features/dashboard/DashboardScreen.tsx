@@ -16,11 +16,17 @@ import { CATEGORY_COLORS } from '@/lib/carbon-constants';
 import type { DashboardData, Challenge } from '@/types';
 
 /** Animated count-up hook */
-function useCountUp(target: number, duration = 1500): number {
+function useCountUp(target: number, duration = 1500): { count: number; isComplete: boolean } {
   const [count, setCount] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    if (target === 0) { setCount(0); return; }
+    if (target === 0) {
+      setCount(0);
+      setIsComplete(true);
+      return;
+    }
+    setIsComplete(false);
     const startTime = performance.now();
     let animationFrame: number;
 
@@ -31,6 +37,9 @@ function useCountUp(target: number, duration = 1500): number {
       setCount(target * eased);
       if (progress < 1) {
         animationFrame = requestAnimationFrame(animate);
+      } else {
+        setCount(target);
+        setIsComplete(true);
       }
     };
 
@@ -38,7 +47,7 @@ function useCountUp(target: number, duration = 1500): number {
     return () => cancelAnimationFrame(animationFrame);
   }, [target, duration]);
 
-  return count;
+  return { count, isComplete };
 }
 
 /** Carbon Score letter grade */
@@ -119,7 +128,7 @@ export default function DashboardScreen() {
     fetchDashboard();
   }, []);
 
-  const weeklyTotal = useCountUp(data?.totalCO2Week ?? 0);
+  const { count: weeklyTotal, isComplete: isCounterComplete } = useCountUp(data?.totalCO2Week ?? 0);
   const gradeInfo = useMemo(() => getCarbonGrade(data?.carbonScore ?? 0), [data?.carbonScore]);
 
   const weekChange = useMemo(() => {
@@ -156,7 +165,7 @@ export default function DashboardScreen() {
       >
         <Card className="p-6 mb-4 text-center glass-primary animate-pulse-glow">
           <p className="text-dark-300 text-sm mb-1">This Week's Footprint</p>
-          <div className="flex items-baseline justify-center gap-1" aria-live="polite">
+          <div className="flex items-baseline justify-center gap-1" aria-live="polite" aria-busy={!isCounterComplete}>
             <span className="text-5xl font-bold text-primary-400 tabular-nums">
               {weeklyTotal.toFixed(1)}
             </span>
@@ -168,7 +177,9 @@ export default function DashboardScreen() {
             ) : (
               <TrendingUp size={16} className="text-red-400" aria-hidden="true" />
             )}
-            <span className={`text-sm font-medium ${weekChange <= 0 ? 'text-green-400' : 'text-red-400'}`}>
+            <span
+              className={`text-sm font-medium ${weekChange <= 0 ? 'text-green-400' : 'text-red-400'}`}
+            >
               {Math.abs(weekChange).toFixed(1)}% vs last week
             </span>
           </div>
@@ -178,7 +189,11 @@ export default function DashboardScreen() {
       {/* Stats Row */}
       <div className="grid grid-cols-3 gap-3 mb-4">
         {/* Streak */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+        >
           <Card className="p-3 text-center">
             <Flame size={20} className="text-orange-400 mx-auto mb-1" aria-hidden="true" />
             <p className="text-xl font-bold text-white">{data?.streak ?? 0}</p>
@@ -187,16 +202,31 @@ export default function DashboardScreen() {
         </motion.div>
 
         {/* Carbon Score */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
           <Card className="p-3 text-center">
-            <Award size={20} style={{ color: gradeInfo.color }} className="mx-auto mb-1" aria-hidden="true" />
-            <p className="text-xl font-bold" style={{ color: gradeInfo.color }}>{gradeInfo.grade}</p>
+            <Award
+              size={20}
+              style={{ color: gradeInfo.color }}
+              className="mx-auto mb-1"
+              aria-hidden="true"
+            />
+            <p className="text-xl font-bold" style={{ color: gradeInfo.color }}>
+              {gradeInfo.grade}
+            </p>
             <p className="text-xs text-dark-400">Carbon Score</p>
           </Card>
         </motion.div>
 
         {/* Today */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
           <Card className="p-3 text-center">
             <Target size={20} className="text-primary-400 mx-auto mb-1" aria-hidden="true" />
             <p className="text-xl font-bold text-white">{data?.totalCO2Today?.toFixed(1)}</p>
@@ -206,23 +236,41 @@ export default function DashboardScreen() {
       </div>
 
       {/* Weekly Comparison Chart */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+      >
         <Card className="p-4 mb-4">
           <h2 className="text-sm font-semibold text-dark-300 mb-3">This Week vs Last Week</h2>
-          <BarChart data={data?.weeklyComparison ?? []} aria-label="Weekly CO2 comparison bar chart" />
+          <BarChart
+            data={data?.weeklyComparison ?? []}
+            aria-label="Weekly CO2 comparison bar chart"
+          />
         </Card>
       </motion.div>
 
       {/* Category Breakdown */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+      >
         <Card className="p-4 mb-4">
           <h2 className="text-sm font-semibold text-dark-300 mb-3">Breakdown by Category</h2>
-          <DonutChart data={data?.categoryBreakdown ?? []} aria-label="CO2 breakdown by category donut chart" />
+          <DonutChart
+            data={data?.categoryBreakdown ?? []}
+            aria-label="CO2 breakdown by category donut chart"
+          />
         </Card>
       </motion.div>
 
       {/* Community Benchmark */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6 }}
+      >
         <Card className="p-4 mb-4 glass-primary">
           <div className="flex items-center gap-2 mb-3">
             <Users size={18} className="text-primary-400" aria-hidden="true" />
@@ -238,7 +286,9 @@ export default function DashboardScreen() {
                 <div className="h-2 bg-dark-800 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
-                    animate={{ width: `${Math.min((data.benchmark.user / data.benchmark.national) * 100, 100)}%` }}
+                    animate={{
+                      width: `${Math.min((data.benchmark.user / data.benchmark.national) * 100, 100)}%`,
+                    }}
                     transition={{ duration: 1, delay: 0.8 }}
                     className="h-full bg-primary-500 rounded-full"
                   />
@@ -259,7 +309,8 @@ export default function DashboardScreen() {
                 </div>
               </div>
               <p className="text-sm font-medium text-primary-400 mt-2">
-                🎉 You emit {((1 - data.benchmark.user / data.benchmark.national) * 100).toFixed(0)}% less than the national average!
+                🎉 You emit {((1 - data.benchmark.user / data.benchmark.national) * 100).toFixed(0)}
+                % less than the national average!
               </p>
             </div>
           )}
@@ -268,7 +319,11 @@ export default function DashboardScreen() {
 
       {/* Challenge Preview */}
       {challenge && challenge.status === 'active' && (
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+        >
           <button
             onClick={() => navigate(`/challenges/${challenge.id}`)}
             className="w-full text-left"
@@ -291,7 +346,9 @@ export default function DashboardScreen() {
                     className="h-full bg-primary-500 rounded-full"
                   />
                 </div>
-                <span className="text-xs text-dark-400 whitespace-nowrap">{challenge.progress}%</span>
+                <span className="text-xs text-dark-400 whitespace-nowrap">
+                  {challenge.progress}%
+                </span>
               </div>
               <p className="text-xs text-primary-500 mt-2">
                 🌱 Save {challenge.co2SavedTarget.toFixed(1)} kg CO₂ this week

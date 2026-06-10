@@ -16,7 +16,11 @@ import pytest_asyncio
 os.environ["MOCK_AI"] = "true"
 os.environ["RATE_LIMIT_SECONDS"] = "5"
 
+from app.core.config import get_settings
+get_settings.cache_clear()
+
 from app.core.rate_limiter import (  # noqa: E402
+
     check_rate_limit,
     clear_all_rate_limits,
     reset_rate_limit,

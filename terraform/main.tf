@@ -19,10 +19,10 @@ terraform {
     }
   }
 
-  backend "gcs" {
-    bucket = "carboncoach-terraform-state"
-    prefix = "terraform/state"
-  }
+  # backend "gcs" {
+  #   bucket = "carboncoach-terraform-state"
+  #   prefix = "terraform/state"
+  # }
 }
 
 provider "google" {

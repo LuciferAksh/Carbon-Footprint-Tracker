@@ -61,7 +61,7 @@ const quizSteps: QuizStep[] = [
     id: 'location',
     title: 'Where are you located?',
     subtitle: 'This helps us use the right emission factors for your region.',
-    icon: <MapPin className="w-6 h-6" />,
+    icon: <MapPin className="w-6 h-6" aria-hidden="true" />,
     type: 'select',
     field: 'location',
     options: [
@@ -75,8 +75,8 @@ const quizSteps: QuizStep[] = [
   {
     id: 'household',
     title: 'How big is your household?',
-    subtitle: 'We\'ll factor in shared emissions like energy and groceries.',
-    icon: <Users className="w-6 h-6" />,
+    subtitle: "We'll factor in shared emissions like energy and groceries.",
+    icon: <Users className="w-6 h-6" aria-hidden="true" />,
     type: 'number',
     field: 'householdSize',
     min: 1,
@@ -87,7 +87,7 @@ const quizSteps: QuizStep[] = [
     id: 'transport',
     title: 'Your primary transport?',
     subtitle: 'What do you mostly use for your daily commute?',
-    icon: <Car className="w-6 h-6" />,
+    icon: <Car className="w-6 h-6" aria-hidden="true" />,
     type: 'select',
     field: 'primaryTransport',
     options: [
@@ -100,9 +100,9 @@ const quizSteps: QuizStep[] = [
   },
   {
     id: 'diet',
-    title: 'What\'s your typical diet?',
+    title: "What's your typical diet?",
     subtitle: 'Food choices have a significant impact on your footprint.',
-    icon: <UtensilsCrossed className="w-6 h-6" />,
+    icon: <UtensilsCrossed className="w-6 h-6" aria-hidden="true" />,
     type: 'select',
     field: 'dietType',
     options: [
@@ -117,7 +117,7 @@ const quizSteps: QuizStep[] = [
     id: 'energy',
     title: 'Your energy source?',
     subtitle: 'How is your home powered?',
-    icon: <Zap className="w-6 h-6" />,
+    icon: <Zap className="w-6 h-6" aria-hidden="true" />,
     type: 'select',
     field: 'energySource',
     options: [
@@ -129,7 +129,7 @@ const quizSteps: QuizStep[] = [
     id: 'shopping',
     title: 'Shopping habits?',
     subtitle: 'How frequently do you buy non-essential items?',
-    icon: <ShoppingBag className="w-6 h-6" />,
+    icon: <ShoppingBag className="w-6 h-6" aria-hidden="true" />,
     type: 'select',
     field: 'shoppingFrequency',
     options: [
@@ -172,6 +172,43 @@ const OnboardingQuiz = React.memo(function OnboardingQuiz() {
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<CarbonProfile | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const cardRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (cardRef.current) {
+      cardRef.current.focus();
+    }
+  }, [currentStep]);
+
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab' || !cardRef.current) return;
+
+      const focusableElements = cardRef.current.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      
+      if (focusableElements.length === 0) return;
+
+      const firstElement = focusableElements[0] as HTMLElement;
+      const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          lastElement.focus();
+          e.preventDefault();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          firstElement.focus();
+          e.preventDefault();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const step = quizSteps[currentStep];
   const isLastStep = currentStep === quizSteps.length - 1;
@@ -264,7 +301,7 @@ const OnboardingQuiz = React.memo(function OnboardingQuiz() {
   if (!step) return null;
 
   return (
-    <div className="min-h-dvh gradient-dark flex flex-col">
+    <main id="main-content" className="min-h-dvh gradient-dark flex flex-col" role="main">
       {/* Radial glow */}
       <div className="fixed inset-0 gradient-radial pointer-events-none" aria-hidden="true" />
 
@@ -281,7 +318,11 @@ const OnboardingQuiz = React.memo(function OnboardingQuiz() {
           </motion.p>
           <Sparkles className="w-5 h-5 text-primary-400" aria-hidden="true" />
         </div>
-        <ProgressBar value={progress} size="sm" ariaLabel={`Quiz progress: step ${currentStep + 1} of ${quizSteps.length}`} />
+        <ProgressBar
+          value={progress}
+          size="sm"
+          ariaLabel={`Quiz progress: step ${currentStep + 1} of ${quizSteps.length}`}
+        />
       </div>
 
       {/* Quiz card with animated transitions */}
@@ -289,6 +330,8 @@ const OnboardingQuiz = React.memo(function OnboardingQuiz() {
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentStep}
+            ref={cardRef}
+            tabIndex={-1}
             custom={direction}
             variants={cardVariants}
             initial="enter"
@@ -299,14 +342,14 @@ const OnboardingQuiz = React.memo(function OnboardingQuiz() {
               opacity: { duration: 0.2 },
               scale: { duration: 0.2 },
             }}
-            className="glass rounded-3xl p-6 sm:p-8 space-y-6"
+            className="glass rounded-3xl p-6 sm:p-8 space-y-6 focus:outline-none"
           >
             {/* Step icon and title */}
             <div className="space-y-3">
               <div className="w-14 h-14 rounded-2xl bg-primary-600/10 border border-primary-600/20 flex items-center justify-center text-primary-400">
                 {step.icon}
               </div>
-              <h2 className="text-2xl font-bold text-dark-100">{step.title}</h2>
+              <h1 className="text-2xl font-bold text-dark-100">{step.title}</h1>
               <p className="text-dark-400 text-sm">{step.subtitle}</p>
             </div>
 
@@ -345,8 +388,19 @@ const OnboardingQuiz = React.memo(function OnboardingQuiz() {
                         animate={{ scale: 1 }}
                         className="w-5 h-5 rounded-full bg-primary-500 flex items-center justify-center"
                       >
-                        <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        <svg
+                          className="w-3 h-3 text-white"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={3}
+                            d="M5 13l4 4L19 7"
+                          />
                         </svg>
                       </motion.div>
                     )}
@@ -410,7 +464,7 @@ const OnboardingQuiz = React.memo(function OnboardingQuiz() {
           <Button
             variant="secondary"
             onClick={handleBack}
-            icon={<ArrowLeft className="w-4 h-4" />}
+            icon={<ArrowLeft className="w-4 h-4" aria-hidden="true" />}
             aria-label="Go to previous step"
           >
             Back
@@ -420,19 +474,13 @@ const OnboardingQuiz = React.memo(function OnboardingQuiz() {
           fullWidth
           onClick={handleNext}
           loading={submitting}
-          icon={
-            isLastStep ? (
-              <Sparkles className="w-4 h-4" />
-            ) : (
-              <ArrowRight className="w-4 h-4" />
-            )
-          }
+          icon={isLastStep ? <Sparkles className="w-4 h-4" aria-hidden="true" /> : <ArrowRight className="w-4 h-4" aria-hidden="true" />}
           aria-label={isLastStep ? 'Calculate your carbon profile' : 'Go to next step'}
         >
           {isLastStep ? 'See My Profile' : 'Continue'}
         </Button>
       </div>
-    </div>
+    </main>
   );
 });
 

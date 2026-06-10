@@ -4,9 +4,12 @@ Pydantic v2 models for weekly challenges and monthly insights.
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
+
 
 from pydantic import BaseModel, Field
+from app.models.activity import CategoryBreakdown
+
 
 
 # ──────────────────────────────────────────────────────
@@ -76,29 +79,22 @@ class ChallengeCreate(BaseModel):
 
 
 class ChallengeResponse(BaseModel):
-    """Response shape for a weekly challenge.
-
-    Attributes:
-        id: Firestore document ID (``YYYY-WW`` format).
-        title: Challenge title.
-        description: Challenge instructions.
-        category: Emission category.
-        targetMetric: Goal description.
-        co2SavingKg: Estimated saving.
-        status: ``active`` | ``completed`` | ``failed``.
-    """
-
+    """Response shape for a weekly challenge."""
     id: str = Field(..., description="Challenge ID (YYYY-WW)")
     title: str
     description: str
     category: str
     targetMetric: str
     co2SavingKg: float
-    status: str = Field(
-        default="active",
-        description="Challenge status",
-        json_schema_extra={"examples": ["active"]},
-    )
+    status: str = Field(default="active", description="Challenge status")
+    difficulty: str = "medium"
+    durationDays: int = 7
+    co2SavedTarget: float = 5.0
+    co2SavedActual: float = 0.0
+    progress: float = 0.0
+    participants: int = 124
+    tips: List[str] = Field(default_factory=list)
+
 
     model_config = {
         "json_schema_extra": {
@@ -196,3 +192,59 @@ class InsightResponse(BaseModel):
             ]
         }
     }
+
+
+class WeeklyTrendPoint(BaseModel):
+    week: str
+    amount: float
+
+
+class MonthlyReportResponse(BaseModel):
+    month: str
+    year: int
+    totalCO2: float
+    previousMonthCO2: float
+    changePercent: float
+    dailyAverage: float
+    categoryBreakdown: List[CategoryBreakdown]
+    weeklyTrend: List[WeeklyTrendPoint]
+    geminiNarrative: str
+    highlights: List[str]
+    score: int
+
+
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
+
+class ChatRequest(BaseModel):
+    messages: List[ChatMessage]
+
+
+class QuizQuestionResponse(BaseModel):
+    """Response model for a dynamically generated quiz question."""
+    question: str = Field(..., description="The quiz question text")
+    options: List[str] = Field(..., description="List of 4 options")
+    correctAnswer: int = Field(..., description="Index of the correct option (0-3)")
+    explanation: str = Field(..., description="Explanation of why the option is correct")
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "question": "Which of the following diets has the lowest average carbon footprint?",
+                    "options": [
+                        "Vegetarian diet with dairy",
+                        "Fully vegan diet",
+                        "Poultry and fish-based diet",
+                        "High-protein meat diet"
+                    ],
+                    "correctAnswer": 1,
+                    "explanation": "A fully vegan diet has the lowest carbon footprint, saving up to 60-70% of food emissions."
+                }
+            ]
+        }
+    }
+
+

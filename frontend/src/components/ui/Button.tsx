@@ -24,16 +24,11 @@ interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'children'> {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary:
-    'bg-primary-600 hover:bg-primary-500 text-white shadow-lg shadow-primary-600/25',
-  secondary:
-    'bg-dark-700 hover:bg-dark-600 text-dark-100 border border-dark-600',
-  ghost:
-    'bg-transparent hover:bg-dark-800 text-dark-300 hover:text-dark-100',
-  danger:
-    'bg-error hover:bg-red-500 text-white shadow-lg shadow-red-500/25',
-  outline:
-    'bg-transparent border-2 border-primary-600 text-primary-400 hover:bg-primary-600/10',
+  primary: 'bg-primary-600 hover:bg-primary-500 text-white shadow-lg shadow-primary-600/25',
+  secondary: 'bg-dark-700 hover:bg-dark-600 text-dark-100 border border-dark-600',
+  ghost: 'bg-transparent hover:bg-dark-800 text-dark-300 hover:text-dark-100',
+  danger: 'bg-error hover:bg-red-500 text-white shadow-lg shadow-red-500/25',
+  outline: 'bg-transparent border-2 border-primary-600 text-primary-400 hover:bg-primary-600/10',
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

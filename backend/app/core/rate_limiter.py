@@ -13,7 +13,7 @@ import logging
 import time
 from typing import Dict
 
-from fastapi import Depends, HTTPException, status
+from fastapi import HTTPException, status
 
 from app.core.config import Settings, get_settings
 

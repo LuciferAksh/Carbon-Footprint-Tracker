@@ -48,8 +48,9 @@ class Settings(BaseSettings):
     MOCK_AI: bool = True
 
     # ---- Gemini ----
-    GEMINI_MODEL: str = "gemini-1.5-flash"
+    GEMINI_MODEL: str = "gemini-2.5-flash"
     GEMINI_LOCATION: str = "us-central1"
+    GEMINI_API_KEY: str = ""
 
     # ---- Rate limiter ----
     RATE_LIMIT_SECONDS: int = 5

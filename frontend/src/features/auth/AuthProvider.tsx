@@ -35,6 +35,8 @@ const DEMO_PROFILE: UserProfile = {
   photoURL: null,
   onboardingComplete: false,
   createdAt: new Date().toISOString(),
+  streak: 3,
+  badges: ['first-log', 'challenge-1'],
 };
 
 interface AuthContextType {
@@ -166,7 +168,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setProfile({ ...profile, onboardingComplete: true });
     }
     if (IS_DEMO_MODE) {
-      localStorage.setItem('carboncoach_demo_session', JSON.stringify({ onboardingComplete: true }));
+      localStorage.setItem(
+        'carboncoach_demo_session',
+        JSON.stringify({ onboardingComplete: true }),
+      );
     }
   }, [profile]);
 
@@ -183,11 +188,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setOnboardingComplete,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 /**

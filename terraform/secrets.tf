@@ -17,6 +17,11 @@ resource "google_secret_manager_secret" "maps_api_key" {
   }
 }
 
+resource "google_secret_manager_secret_version" "maps_api_key_version" {
+  secret      = google_secret_manager_secret.maps_api_key.id
+  secret_data = "placeholder-maps-key"
+}
+
 # Embedding snapshots storage bucket
 resource "google_storage_bucket" "embeddings" {
   name     = "${var.project_id}-carboncoach-embeddings"

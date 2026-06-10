@@ -29,10 +29,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
   return (
     <div className="space-y-1.5">
-      <label
-        htmlFor={inputId}
-        className="block text-sm font-medium text-dark-300"
-      >
+      <label htmlFor={inputId} className="block text-sm font-medium text-dark-300">
         {label}
       </label>
       <div className="relative">

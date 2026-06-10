@@ -53,3 +53,8 @@ frontend/dist/
 # Logs
 *.log
 npm-debug.log*
+
+# Credentials and GCP secrets
+carbon-coach-*.json
+*-key.json
+service-account*.json

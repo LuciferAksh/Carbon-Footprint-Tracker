@@ -1,0 +1,12 @@
+# Exclude local python env and caches from gcloud uploads
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
+tests/
+Dockerfile.local
+*.log

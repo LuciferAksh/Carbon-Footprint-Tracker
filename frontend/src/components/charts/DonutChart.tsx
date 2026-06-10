@@ -3,13 +3,7 @@
  * Displays CO2 distribution across categories with center text.
  */
 import React, { useMemo } from 'react';
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-  type ChartOptions,
-} from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, type ChartOptions } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import type { CategoryBreakdown } from '@/types';
 
@@ -98,12 +92,8 @@ const DonutChart = React.memo<DonutChartProps>(function DonutChart({
       <Doughnut data={chartData} options={options} />
       {(centerLabel || centerValue) && (
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          {centerValue && (
-            <span className="text-2xl font-bold text-dark-100">{centerValue}</span>
-          )}
-          {centerLabel && (
-            <span className="text-xs text-dark-400 mt-0.5">{centerLabel}</span>
-          )}
+          {centerValue && <span className="text-2xl font-bold text-dark-100">{centerValue}</span>}
+          {centerLabel && <span className="text-xs text-dark-400 mt-0.5">{centerLabel}</span>}
         </div>
       )}
     </div>

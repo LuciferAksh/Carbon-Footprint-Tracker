@@ -58,7 +58,9 @@ def _ensure_firebase_initialized(settings: Settings) -> None:
                 )
                 firebase_admin.initialize_app(cred)
             else:
-                firebase_admin.initialize_app()
+                import os
+                os.environ["GOOGLE_CLOUD_PROJECT"] = settings.GCP_PROJECT_ID
+                firebase_admin.initialize_app(options={"projectId": settings.GCP_PROJECT_ID})
 
         _firebase_app_initialized = True
         logger.info("Firebase Admin SDK initialised successfully.")

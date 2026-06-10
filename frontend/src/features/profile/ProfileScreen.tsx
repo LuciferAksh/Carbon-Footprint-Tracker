@@ -10,13 +10,52 @@ import { useAuth } from '@/features/auth';
 
 /** Badge definitions based on achievements */
 const ACHIEVEMENT_BADGES = [
-  { id: 'first-log', label: 'First Log', emoji: '🌱', desc: 'Logged your first activity', earned: true },
-  { id: 'week-streak', label: '7-Day Streak', emoji: '🔥', desc: '7 consecutive days logged', earned: true },
-  { id: 'challenge-1', label: 'Challenger', emoji: '🏆', desc: 'Completed first challenge', earned: true },
-  { id: 'green-commute', label: 'Green Commuter', emoji: '🚇', desc: 'Took public transport 10 times', earned: true },
-  { id: 'vegan-week', label: 'Vegan Warrior', emoji: '🥗', desc: '7 vegan meals in a week', earned: false },
+  {
+    id: 'first-log',
+    label: 'First Log',
+    emoji: '🌱',
+    desc: 'Logged your first activity',
+    earned: true,
+  },
+  {
+    id: 'week-streak',
+    label: '7-Day Streak',
+    emoji: '🔥',
+    desc: '7 consecutive days logged',
+    earned: true,
+  },
+  {
+    id: 'challenge-1',
+    label: 'Challenger',
+    emoji: '🏆',
+    desc: 'Completed first challenge',
+    earned: true,
+  },
+  {
+    id: 'green-commute',
+    label: 'Green Commuter',
+    emoji: '🚇',
+    desc: 'Took public transport 10 times',
+    earned: true,
+  },
+  {
+    id: 'vegan-week',
+    label: 'Vegan Warrior',
+    emoji: '🥗',
+    desc: '7 vegan meals in a week',
+    earned: false,
+  },
   { id: 'carbon-a', label: 'A-Score', emoji: '⭐', desc: 'Reached Carbon Score A', earned: false },
 ] as const;
+
+/** Carbon Score letter grade helper */
+function getCarbonGrade(score: number): { grade: string; color: string } {
+  if (score >= 90) return { grade: 'A+', color: '#22c55e' };
+  if (score >= 80) return { grade: 'A', color: '#4ade80' };
+  if (score >= 70) return { grade: 'B', color: '#86efac' };
+  if (score >= 60) return { grade: 'C', color: '#f59e0b' };
+  return { grade: 'D', color: '#ef4444' };
+}
 
 /**
  * Profile screen component.
@@ -24,16 +63,37 @@ const ACHIEVEMENT_BADGES = [
 export default function ProfileScreen() {
   const { user, profile, signOut } = useAuth();
 
-  const earnedBadges = useMemo(() => ACHIEVEMENT_BADGES.filter(b => b.earned), []);
-  const lockedBadges = useMemo(() => ACHIEVEMENT_BADGES.filter(b => !b.earned), []);
+  const userStreak = profile?.streak ?? 0;
+
+  const earnedBadges = useMemo(() => {
+    const badgesList = profile?.badges ?? [];
+    return ACHIEVEMENT_BADGES.map((badge) => ({
+      ...badge,
+      earned: badgesList.includes(badge.id),
+    })).filter((b) => b.earned);
+  }, [profile?.badges]);
+
+  const lockedBadges = useMemo(() => {
+    const badgesList = profile?.badges ?? [];
+    return ACHIEVEMENT_BADGES.map((badge) => ({
+      ...badge,
+      earned: badgesList.includes(badge.id),
+    })).filter((b) => !b.earned);
+  }, [profile?.badges]);
+
+  const gradeInfo = useMemo(() => {
+    const score = profile?.carbonProfile?.carbonScore;
+    if (score === undefined) return { grade: 'N/A', color: '#9ca3af' };
+    return getCarbonGrade(score);
+  }, [profile?.carbonProfile?.carbonScore]);
 
   return (
     <main id="main-content" className="px-4 pt-6 pb-24 max-w-lg mx-auto" role="main">
       {/* Profile Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-        <Card className="p-6 mb-4 text-center">
+        <Card className="p-6 mb-4 text-center border-dark-700/50 bg-dark-900/40 backdrop-blur-md">
           {/* Avatar */}
-          <div className="w-20 h-20 rounded-full mx-auto mb-3 overflow-hidden border-2 border-primary-600/50">
+          <div className="w-20 h-20 rounded-full mx-auto mb-3 overflow-hidden border-2 border-primary-600/50 shadow-md">
             {user?.photoURL ? (
               <img
                 src={user.photoURL}
@@ -48,33 +108,55 @@ export default function ProfileScreen() {
             )}
           </div>
 
-          <h1 className="text-xl font-bold text-white">{user?.displayName || 'CarbonCoach User'}</h1>
+          <h1 className="text-xl font-bold text-white">
+            {user?.displayName || 'CarbonCoach User'}
+          </h1>
           <p className="text-sm text-dark-400">{user?.email}</p>
 
           {/* Carbon Profile Type */}
-            {profile?.onboardingComplete && (
-              <Badge variant="primary" className="mt-3 text-sm">
-                <Leaf size={14} className="mr-1" aria-hidden="true" />
-                The Urban Commuter
-              </Badge>
-            )}
+          {profile?.onboardingComplete && (
+            <Badge variant="primary" className="mt-3 text-sm shadow-sm">
+              <Leaf size={14} className="mr-1" aria-hidden="true" />
+              {profile?.carbonProfileType
+                ? profile.carbonProfileType
+                    .split('_')
+                    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                    .join(' ')
+                : 'The Urban Commuter'}
+            </Badge>
+          )}
         </Card>
       </motion.div>
 
       {/* Stats Row */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+      >
         <div className="grid grid-cols-3 gap-3 mb-4">
-          <Card className="p-3 text-center">
-            <Flame size={20} className="text-orange-400 mx-auto mb-1" aria-hidden="true" />
-            <p className="text-xl font-bold text-white">7</p>
+          <Card className="p-3 text-center border-dark-700/50 bg-dark-900/40 backdrop-blur-md hover:border-orange-500/20 transition-all duration-300">
+            <Flame
+              size={20}
+              className="text-orange-400 mx-auto mb-1 animate-pulse"
+              aria-hidden="true"
+            />
+            <p className="text-xl font-bold text-white">{userStreak}</p>
             <p className="text-xs text-dark-400">Day Streak</p>
           </Card>
-          <Card className="p-3 text-center">
-            <Award size={20} className="text-primary-400 mx-auto mb-1" aria-hidden="true" />
-            <p className="text-xl font-bold text-primary-400">B</p>
+          <Card className="p-3 text-center border-dark-700/50 bg-dark-900/40 backdrop-blur-md hover:border-primary-500/20 transition-all duration-300">
+            <Award
+              size={20}
+              style={{ color: gradeInfo.color }}
+              className="mx-auto mb-1"
+              aria-hidden="true"
+            />
+            <p className="text-xl font-bold" style={{ color: gradeInfo.color }}>
+              {gradeInfo.grade}
+            </p>
             <p className="text-xs text-dark-400">Carbon Score</p>
           </Card>
-          <Card className="p-3 text-center">
+          <Card className="p-3 text-center border-dark-700/50 bg-dark-900/40 backdrop-blur-md hover:border-green-500/20 transition-all duration-300">
             <Leaf size={20} className="text-green-400 mx-auto mb-1" aria-hidden="true" />
             <p className="text-xl font-bold text-white">{earnedBadges.length}</p>
             <p className="text-xs text-dark-400">Badges</p>
@@ -83,7 +165,11 @@ export default function ProfileScreen() {
       </motion.div>
 
       {/* Earned Badges */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
         <Card className="p-5 mb-4">
           <h2 className="text-sm font-semibold text-dark-300 mb-3">🏅 Earned Badges</h2>
           <div className="grid grid-cols-2 gap-2">
@@ -92,7 +178,9 @@ export default function ProfileScreen() {
                 key={badge.id}
                 className="flex items-center gap-3 p-3 rounded-xl bg-dark-800/50 border border-primary-800/20"
               >
-                <span className="text-2xl" role="img" aria-label={badge.label}>{badge.emoji}</span>
+                <span className="text-2xl" role="img" aria-label={badge.label}>
+                  {badge.emoji}
+                </span>
                 <div>
                   <p className="text-sm font-medium text-white">{badge.label}</p>
                   <p className="text-xs text-dark-400">{badge.desc}</p>
@@ -104,7 +192,11 @@ export default function ProfileScreen() {
       </motion.div>
 
       {/* Locked Badges */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
         <Card className="p-5 mb-4">
           <h2 className="text-sm font-semibold text-dark-300 mb-3">🔒 Locked Badges</h2>
           <div className="grid grid-cols-2 gap-2">
@@ -113,7 +205,9 @@ export default function ProfileScreen() {
                 key={badge.id}
                 className="flex items-center gap-3 p-3 rounded-xl bg-dark-800/30 opacity-50"
               >
-                <span className="text-2xl grayscale" role="img" aria-label={badge.label}>{badge.emoji}</span>
+                <span className="text-2xl grayscale" role="img" aria-label={badge.label}>
+                  {badge.emoji}
+                </span>
                 <div>
                   <p className="text-sm font-medium text-dark-300">{badge.label}</p>
                   <p className="text-xs text-dark-500">{badge.desc}</p>
@@ -125,7 +219,11 @@ export default function ProfileScreen() {
       </motion.div>
 
       {/* Settings */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+      >
         <Card className="p-4 mb-4">
           <h2 className="text-sm font-semibold text-dark-300 mb-3">
             <Settings size={16} className="inline mr-1" aria-hidden="true" />
@@ -148,7 +246,11 @@ export default function ProfileScreen() {
       </motion.div>
 
       {/* Sign Out */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+      >
         <Button
           variant="ghost"
           className="w-full text-red-400 hover:text-red-300 hover:bg-red-900/20"

@@ -5,7 +5,16 @@
  */
 import { useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Car, UtensilsCrossed, Zap, ShoppingBag, Plus, Leaf, TrendingDown } from 'lucide-react';
+import {
+  Car,
+  UtensilsCrossed,
+  Zap,
+  ShoppingBag,
+  Plus,
+  Leaf,
+  TrendingDown,
+  Sparkles,
+} from 'lucide-react';
 import { Card, Button, Input, Select } from '@/components/ui';
 import { useToast } from '@/components/ui/Toast';
 import {
@@ -21,10 +30,38 @@ import { api } from '@/lib/api';
 
 /** Category tile configuration */
 const CATEGORIES = [
-  { id: 'transport' as const, label: 'Transport', icon: Car, color: CATEGORY_COLORS.transport, emoji: '🚗', unit: 'km' },
-  { id: 'food' as const, label: 'Food', icon: UtensilsCrossed, color: CATEGORY_COLORS.food, emoji: '🍽', unit: 'meals' },
-  { id: 'energy' as const, label: 'Energy', icon: Zap, color: CATEGORY_COLORS.energy, emoji: '⚡', unit: 'kWh' },
-  { id: 'shopping' as const, label: 'Shopping', icon: ShoppingBag, color: CATEGORY_COLORS.shopping, emoji: '🛍', unit: '₹1000' },
+  {
+    id: 'transport' as const,
+    label: 'Transport',
+    icon: Car,
+    color: CATEGORY_COLORS.transport,
+    emoji: '🚗',
+    unit: 'km',
+  },
+  {
+    id: 'food' as const,
+    label: 'Food',
+    icon: UtensilsCrossed,
+    color: CATEGORY_COLORS.food,
+    emoji: '🍽',
+    unit: 'meals',
+  },
+  {
+    id: 'energy' as const,
+    label: 'Energy',
+    icon: Zap,
+    color: CATEGORY_COLORS.energy,
+    emoji: '⚡',
+    unit: 'kWh',
+  },
+  {
+    id: 'shopping' as const,
+    label: 'Shopping',
+    icon: ShoppingBag,
+    color: CATEGORY_COLORS.shopping,
+    emoji: '🛍',
+    unit: '₹1000',
+  },
 ] as const;
 
 /** Subtype options per category */
@@ -35,6 +72,13 @@ const SUBTYPE_OPTIONS: Record<ActivityCategory, Record<string, string>> = {
   shopping: SHOPPING_LABELS,
 };
 
+interface ParseTextResponse {
+  transport?: Array<{ mode: string; distanceKm: number }>;
+  food?: Array<{ mealType: string; quantity: number }>;
+  energy?: Array<{ source: string; kWh: number }>;
+  shopping?: Array<{ category: string; amountInr: number }>;
+}
+
 /**
  * Activity Log screen component.
  * Displays 4 category tiles for quick-add and a form for detailed logging.
@@ -44,7 +88,83 @@ export default function LogScreen() {
   const [subType, setSubType] = useState('');
   const [quantity, setQuantity] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [parseText, setParseText] = useState('');
+  const [parsing, setParsing] = useState(false);
   const { addToast } = useToast();
+
+  /** Handle conversational text parsing */
+  const handleParseText = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!parseText.trim() || parsing) return;
+
+    setParsing(true);
+    try {
+      const response = await api.post<ParseTextResponse>('/activity/parse-text', {
+        text: parseText,
+      });
+      const data = response.data;
+
+      // Prefill matching parsed category
+      if (data.transport && data.transport.length > 0) {
+        setSelectedCategory('transport');
+        setSubType(data.transport[0].mode);
+        setQuantity(data.transport[0].distanceKm.toString());
+        addToast({
+          type: 'success',
+          title: '🌿 AI Log Pre-filled',
+          message: 'Form populated with Transport details. 🚗',
+          duration: 4000,
+        });
+      } else if (data.food && data.food.length > 0) {
+        setSelectedCategory('food');
+        setSubType(data.food[0].mealType);
+        setQuantity(data.food[0].quantity.toString());
+        addToast({
+          type: 'success',
+          title: '🌿 AI Log Pre-filled',
+          message: 'Form populated with Food details. 🍽',
+          duration: 4000,
+        });
+      } else if (data.energy && data.energy.length > 0) {
+        setSelectedCategory('energy');
+        setSubType(data.energy[0].source);
+        setQuantity(data.energy[0].kWh.toString());
+        addToast({
+          type: 'success',
+          title: '🌿 AI Log Pre-filled',
+          message: 'Form populated with Energy details. ⚡',
+          duration: 4000,
+        });
+      } else if (data.shopping && data.shopping.length > 0) {
+        setSelectedCategory('shopping');
+        setSubType(data.shopping[0].category);
+        const amt = data.shopping[0].amountInr / 1000;
+        setQuantity(amt.toString());
+        addToast({
+          type: 'success',
+          title: '🌿 AI Log Pre-filled',
+          message: 'Form populated with Shopping details. 🛍',
+          duration: 4000,
+        });
+      } else {
+        addToast({
+          type: 'error',
+          title: 'Parse Failed',
+          message: "We couldn't extract any activities. Please phrase it differently.",
+          duration: 4000,
+        });
+      }
+    } catch {
+      addToast({
+        type: 'error',
+        title: 'Parse Error',
+        message: 'Something went wrong while communicating with Gemini.',
+        duration: 4000,
+      });
+    } finally {
+      setParsing(false);
+    }
+  };
 
   /** CO2 preview as user fills the form */
   const co2Preview = useMemo(() => {
@@ -60,47 +180,51 @@ export default function LogScreen() {
   }, []);
 
   /** Handle form submission */
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!selectedCategory || !subType || !quantity) return;
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!selectedCategory || !subType || !quantity) return;
 
-    setSubmitting(true);
-    try {
-      const response = await api.post<{ tip: string }>('/activity/log', {
-        category: selectedCategory,
-        subType,
-        quantity: parseFloat(quantity),
-        co2Kg: co2Preview,
-        date: new Date().toISOString().split('T')[0],
-      });
+      setSubmitting(true);
+      try {
+        const response = await api.post<{ tip: string }>('/activity/log', {
+          category: selectedCategory,
+          subType,
+          quantity: parseFloat(quantity),
+          co2Kg: co2Preview,
+          date: new Date().toISOString().split('T')[0],
+        });
 
-      addToast({
-        type: 'success',
-        title: '🌿 CarbonCoach Tip',
-        message: response.data.tip,
-        duration: 8000,
-      });
+        addToast({
+          type: 'success',
+          title: '🌿 CarbonCoach Tip',
+          message: response.data.tip,
+          duration: 8000,
+        });
 
-      setSelectedCategory(null);
-      setSubType('');
-      setQuantity('');
-    } catch {
-      addToast({
-        type: 'success',
-        title: '🌿 Activity Logged!',
-        message: "Great job logging your activity! Every step towards awareness helps reduce your footprint. 🌱",
-        duration: 6000,
-      });
-      setSelectedCategory(null);
-      setSubType('');
-      setQuantity('');
-    } finally {
-      setSubmitting(false);
-    }
-  }, [selectedCategory, subType, quantity, co2Preview, addToast]);
+        setSelectedCategory(null);
+        setSubType('');
+        setQuantity('');
+      } catch {
+        addToast({
+          type: 'success',
+          title: '🌿 Activity Logged!',
+          message:
+            'Great job logging your activity! Every step towards awareness helps reduce your footprint. 🌱',
+          duration: 6000,
+        });
+        setSelectedCategory(null);
+        setSubType('');
+        setQuantity('');
+      } finally {
+        setSubmitting(false);
+      }
+    },
+    [selectedCategory, subType, quantity, co2Preview, addToast],
+  );
 
   const currentOptions = selectedCategory ? SUBTYPE_OPTIONS[selectedCategory] : {};
-  const currentUnit = CATEGORIES.find(c => c.id === selectedCategory)?.unit ?? '';
+  const currentUnit = CATEGORIES.find((c) => c.id === selectedCategory)?.unit ?? '';
 
   return (
     <main id="main-content" className="px-4 pt-6 pb-24 max-w-lg mx-auto" role="main">
@@ -108,6 +232,43 @@ export default function LogScreen() {
         <h1 className="text-2xl font-bold text-white">Log Activity</h1>
         <p className="text-dark-400 text-sm mt-1">Track your daily carbon footprint</p>
       </header>
+
+      {/* AI Smart Log Input */}
+      <motion.div
+        initial={{ opacity: 0, y: -15 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="glass rounded-2xl p-4 mb-6 border-primary-500/20"
+      >
+        <form onSubmit={handleParseText} className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-white flex items-center gap-1.5">
+              <Sparkles className="w-4 h-4 text-primary-400" aria-hidden="true" />
+              AI Conversational Logging
+            </h2>
+            <span className="text-[10px] bg-primary-600/20 text-primary-400 px-2 py-0.5 rounded-full font-medium">
+              Gemini Powered
+            </span>
+          </div>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={parseText}
+              onChange={(e) => setParseText(e.target.value)}
+              placeholder="e.g., I rode a petrol car for 12 km today..."
+              className="flex-1 bg-dark-900 border border-dark-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-primary-500 placeholder-dark-500"
+              aria-label="Describe your activity for the AI to parse"
+              disabled={parsing}
+            />
+            <button
+              type="submit"
+              disabled={!parseText.trim() || parsing}
+              className="px-4 py-2.5 text-xs font-semibold whitespace-nowrap rounded-xl bg-primary-600 hover:bg-primary-500 disabled:bg-dark-800 disabled:text-dark-500 text-white transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-primary-500"
+            >
+              {parsing ? 'Parsing...' : 'Fill Form'}
+            </button>
+          </div>
+        </form>
+      </motion.div>
 
       {/* Category Tiles */}
       <section aria-label="Activity categories" className="grid grid-cols-2 gap-3 mb-6">
@@ -136,7 +297,9 @@ export default function LogScreen() {
               >
                 <Icon size={20} style={{ color: cat.color }} aria-hidden="true" />
               </div>
-              <span className="text-sm font-semibold text-white block">{cat.emoji} {cat.label}</span>
+              <span className="text-sm font-semibold text-white block">
+                {cat.emoji} {cat.label}
+              </span>
               <span className="text-xs text-dark-400 mt-1 block">per {cat.unit}</span>
             </motion.button>
           );
@@ -157,7 +320,7 @@ export default function LogScreen() {
               <form onSubmit={handleSubmit} aria-label="Log activity form">
                 <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                   <Plus size={18} className="text-primary-500" aria-hidden="true" />
-                  Add {CATEGORIES.find(c => c.id === selectedCategory)?.label}
+                  Add {CATEGORIES.find((c) => c.id === selectedCategory)?.label}
                 </h2>
 
                 <div className="space-y-4">
@@ -165,7 +328,9 @@ export default function LogScreen() {
                     label="Type"
                     id="activity-subtype"
                     value={subType}
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSubType(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                      setSubType(e.target.value)
+                    }
                     options={Object.entries(currentOptions).map(([value, label]) => ({
                       value,
                       label,
@@ -179,7 +344,9 @@ export default function LogScreen() {
                     id="activity-quantity"
                     type="number"
                     value={quantity}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuantity(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setQuantity(e.target.value)
+                    }
                     placeholder={`Enter ${currentUnit}`}
                     min="0"
                     step="0.1"
@@ -216,7 +383,7 @@ export default function LogScreen() {
                       <span className="flex items-center gap-2">
                         <motion.span
                           animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                           className="inline-block"
                         >
                           <Leaf size={16} aria-hidden="true" />
@@ -239,11 +406,7 @@ export default function LogScreen() {
 
       {/* Empty state */}
       {!selectedCategory && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-8"
-        >
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-8">
           <Leaf size={48} className="text-primary-700 mx-auto mb-3" aria-hidden="true" />
           <p className="text-dark-400 text-sm">
             Tap a category above to start logging today&apos;s activities

@@ -8,6 +8,7 @@ so that no real Firestore connection is required.
 from __future__ import annotations
 
 import logging
+import time
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
@@ -17,6 +18,11 @@ logger = logging.getLogger(__name__)
 
 # ── In-memory mock store ──────────────────────────────
 _mock_store: Dict[str, Dict[str, Any]] = {}
+
+# Simple cache store for Firestore document reads: (collection_path, doc_id) -> (timestamp, data_dict)
+_cache: Dict[str, tuple[float, Optional[Dict[str, Any]]]] = {}
+_list_cache: Dict[str, tuple[float, List[Dict[str, Any]]]] = {}
+_CACHE_TTL_SECONDS = 60.0  # Cache profiles/documents/lists for 60 seconds
 
 
 def _mock_path(parts: List[str]) -> str:
@@ -64,6 +70,11 @@ async def set_document(
         settings: App settings (injected or resolved).
     """
     settings = settings or get_settings()
+    
+    # Invalidate cache on write
+    cache_key = f"{collection_path}/{doc_id}"
+    _cache.pop(cache_key, None)
+    _list_cache.pop(collection_path, None)
 
     if settings.is_mock:
         key = _mock_path([collection_path, doc_id])
@@ -98,15 +109,26 @@ async def get_document(
     """
     settings = settings or get_settings()
 
+    cache_key = f"{collection_path}/{doc_id}"
+    now = time.time()
+    if cache_key in _cache:
+        cached_time, cached_val = _cache[cache_key]
+        if now - cached_time < _CACHE_TTL_SECONDS:
+            logger.debug("CACHE hit for %s", cache_key)
+            return cached_val
+
     if settings.is_mock:
         key = _mock_path([collection_path, doc_id])
         doc = _mock_store.get(key)
         logger.debug("MOCK get_document %s → %s", key, doc)
+        _cache[cache_key] = (now, doc)
         return doc
 
     client = _get_client(settings)
     snap = client.document(f"{collection_path}/{doc_id}").get()
-    return snap.to_dict() if snap.exists else None
+    doc = snap.to_dict() if snap.exists else None
+    _cache[cache_key] = (now, doc)
+    return doc
 
 
 async def list_documents(
@@ -124,6 +146,13 @@ async def list_documents(
     """
     settings = settings or get_settings()
 
+    now = time.time()
+    if collection_path in _list_cache:
+        cached_time, cached_val = _list_cache[collection_path]
+        if now - cached_time < _CACHE_TTL_SECONDS:
+            logger.debug("CACHE hit for list: %s", collection_path)
+            return cached_val
+
     if settings.is_mock:
         prefix = collection_path + "/"
         results = []
@@ -133,11 +162,14 @@ async def list_documents(
                 # Only include direct children (no sub-collections)
                 if "/" not in doc_id:
                     results.append({"id": doc_id, **val})
+        _list_cache[collection_path] = (now, results)
         return results
 
     client = _get_client(settings)
     docs = client.collection(collection_path).stream()
-    return [{"id": d.id, **d.to_dict()} for d in docs]
+    results = [{"id": d.id, **d.to_dict()} for d in docs]
+    _list_cache[collection_path] = (now, results)
+    return results
 
 
 async def delete_document(
@@ -153,6 +185,10 @@ async def delete_document(
         settings: App settings.
     """
     settings = settings or get_settings()
+
+    cache_key = f"{collection_path}/{doc_id}"
+    _cache.pop(cache_key, None)
+    _list_cache.pop(collection_path, None)
 
     if settings.is_mock:
         key = _mock_path([collection_path, doc_id])
@@ -353,3 +389,5 @@ async def get_insight(
 def clear_mock_store() -> None:
     """Wipe the in-memory mock store (test-only)."""
     _mock_store.clear()
+    _cache.clear()
+    _list_cache.clear()

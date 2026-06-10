@@ -145,6 +145,11 @@ class TestCalcEnergy:
     def test_empty(self):
         assert calc_energy([]) == 0.0
 
+    def test_unknown_energy_skipped(self):
+        entries = [EnergyEntry(source="plasma", kWh=100)]
+        assert calc_energy(entries) == 0.0
+
+
 
 # ──────────────────────────────────────────────────────
 # Shopping
@@ -171,6 +176,11 @@ class TestCalcShopping:
 
     def test_empty(self):
         assert calc_shopping([]) == 0.0
+
+    def test_unknown_shopping_skipped(self):
+        entries = [ShoppingEntry(category="yachts", amountInr=100000)]
+        assert calc_shopping(entries) == 0.0
+
 
 
 # ──────────────────────────────────────────────────────

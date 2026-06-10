@@ -188,3 +188,61 @@ class ActivityLogResponse(BaseModel):
             ]
         }
     }
+
+
+class WeeklyDataPoint(BaseModel):
+    day: str
+    thisWeek: float
+    lastWeek: float
+
+
+class CategoryBreakdown(BaseModel):
+    category: str
+    amount: float
+    percentage: float
+    color: str
+
+
+class DashboardBenchmark(BaseModel):
+    user: float
+    national: float
+    target: float
+
+
+class DashboardData(BaseModel):
+    totalCO2Today: float
+    totalCO2Week: float
+    totalCO2Month: float
+    weeklyComparison: List[WeeklyDataPoint]
+    categoryBreakdown: List[CategoryBreakdown]
+    streak: int
+    carbonScore: int
+    benchmark: DashboardBenchmark
+
+
+class ParseTextRequest(BaseModel):
+    text: str
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [{"text": "I drove my petrol car for 12 km and ate a chicken sandwich"}]
+        }
+    }
+
+
+class CommunityAnalyticsPoint(BaseModel):
+    category: str
+    avg_co2_kg: float
+    median_co2_kg: float
+    p20_co2_kg: float
+    p80_co2_kg: float
+    total_users: int
+    week: str
+
+
+class CommunityAnalyticsResponse(BaseModel):
+    page: int
+    size: int
+    total: int
+    results: List[CommunityAnalyticsPoint]
+

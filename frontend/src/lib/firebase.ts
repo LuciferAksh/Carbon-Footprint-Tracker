@@ -1,9 +1,9 @@
 /**
  * @fileoverview Firebase configuration and initialization.
  * Reads configuration from VITE_FIREBASE_* environment variables.
- * In demo mode, Firebase is still initialized but never actually used for auth.
+ * Uses getApps() guard to prevent duplicate initialization during HMR.
  */
-import { initializeApp, type FirebaseApp } from 'firebase/app';
+import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
 import { getAuth, type Auth, GoogleAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -16,8 +16,8 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || '',
 };
 
-/** Firebase app instance */
-export const app: FirebaseApp = initializeApp(firebaseConfig);
+/** Firebase app instance — guarded against duplicate init during HMR */
+export const app: FirebaseApp = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 /** Firebase auth instance */
 export const auth: Auth = getAuth(app);

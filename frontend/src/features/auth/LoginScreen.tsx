@@ -12,7 +12,7 @@ import Button from '@/components/ui/Button';
 /** Floating particle type for background decoration */
 interface FloatingParticle {
   id: number;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string; size?: number | string }>;
   x: number;
   y: number;
   size: number;
@@ -36,7 +36,8 @@ const particles: FloatingParticle[] = [
  * and Google Sign-In button. Redirects to home if already authenticated.
  */
 const LoginScreen = React.memo(function LoginScreen() {
-  const { user, signInWithGoogle, signInAsDemo, isDemoMode, loading, hasCompletedOnboarding } = useAuth();
+  const { user, signInWithGoogle, signInAsDemo, isDemoMode, loading, hasCompletedOnboarding } =
+    useAuth();
   const [signingIn, setSigningIn] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -62,7 +63,7 @@ const LoginScreen = React.memo(function LoginScreen() {
   }
 
   return (
-    <div className="min-h-dvh relative overflow-hidden flex flex-col items-center justify-center px-6">
+    <main id="main-content" className="min-h-dvh relative overflow-hidden flex flex-col items-center justify-center px-6" role="main">
       {/* Animated gradient background */}
       <div
         className="absolute inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-primary-950"
@@ -101,7 +102,7 @@ const LoginScreen = React.memo(function LoginScreen() {
             }}
             aria-hidden="true"
           >
-            <Icon className={`w-[${particle.size}px] h-[${particle.size}px]`} />
+            <Icon size={particle.size} />
           </motion.div>
         );
       })}
@@ -169,35 +170,12 @@ const LoginScreen = React.memo(function LoginScreen() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.6 }}
         >
-          {/* Demo Mode Login — shown when VITE_DEMO_MODE=true */}
-          {isDemoMode && (
-            <>
-              <Button
-                onClick={handleDemoSignIn}
-                fullWidth
-                size="lg"
-                className="relative overflow-hidden"
-                aria-label="Explore CarbonCoach as a demo user"
-                icon={<Leaf className="w-5 h-5" />}
-              >
-                Explore as Demo User
-              </Button>
-
-              <div className="flex items-center gap-3 px-2">
-                <div className="flex-1 h-px bg-dark-700" />
-                <span className="text-xs text-dark-500">or</span>
-                <div className="flex-1 h-px bg-dark-700" />
-              </div>
-            </>
-          )}
-
           {/* Google Sign-In */}
           <Button
             onClick={handleGoogleSignIn}
             loading={signingIn}
             fullWidth
             size="lg"
-            variant={isDemoMode ? 'secondary' : undefined}
             className="relative overflow-hidden"
             aria-label="Sign in with Google account"
             icon={
@@ -224,9 +202,27 @@ const LoginScreen = React.memo(function LoginScreen() {
             Continue with Google
           </Button>
 
+          <div className="flex items-center gap-3 px-2">
+            <div className="flex-1 h-px bg-dark-700" />
+            <span className="text-xs text-dark-500">or</span>
+            <div className="flex-1 h-px bg-dark-700" />
+          </div>
+
+          <Button
+            onClick={handleDemoSignIn}
+            fullWidth
+            size="lg"
+            variant="secondary"
+            className="relative overflow-hidden"
+            aria-label="Explore CarbonCoach as a guest demo user"
+            icon={<Leaf className="w-5 h-5" aria-hidden="true" />}
+          >
+            Explore as Guest (Demo Mode)
+          </Button>
+
           {isDemoMode && (
             <p className="text-xs text-primary-600/60 text-center">
-              🧪 Demo Mode — no Firebase project needed
+              🧪 Environment VITE_DEMO_MODE=true active
             </p>
           )}
 
@@ -252,7 +248,7 @@ const LoginScreen = React.memo(function LoginScreen() {
         className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark-950 to-transparent"
         aria-hidden="true"
       />
-    </div>
+    </main>
   );
 });
 

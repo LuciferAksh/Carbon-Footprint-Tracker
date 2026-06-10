@@ -9,6 +9,7 @@ import ProtectedRoute from '@/features/auth/ProtectedRoute';
 import { AppShell } from '@/components/layout';
 import { ErrorBoundary } from '@/components/feedback';
 import { LoadingSpinner } from '@/components/feedback';
+import { useFocusOnRouteChange } from '@/lib/hooks/useFocusOnRouteChange';
 
 /* Lazy-loaded route components for bundle splitting */
 const LoginScreen = lazy(() => import('@/features/auth/LoginScreen'));
@@ -19,6 +20,7 @@ const ChallengesScreen = lazy(() => import('@/features/challenges/ChallengesScre
 const ChallengeDetail = lazy(() => import('@/features/challenges/ChallengeDetail'));
 const MonthlyReport = lazy(() => import('@/features/reports/MonthlyReport'));
 const ProfileScreen = lazy(() => import('@/features/profile/ProfileScreen'));
+const CoachScreen = lazy(() => import('@/features/coach/CoachScreen'));
 
 /**
  * Suspense fallback for lazy-loaded routes.
@@ -38,6 +40,7 @@ function RouteFallback() {
  */
 export default function App() {
   const { hasCompletedOnboarding, loading } = useAuth();
+  useFocusOnRouteChange();
 
   if (loading) {
     return <RouteFallback />;
@@ -67,7 +70,6 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-
 
         {/* Main app routes — wrapped in AppShell for bottom nav */}
         <Route
@@ -126,6 +128,14 @@ export default function App() {
             element={
               <ErrorBoundary>
                 <ProfileScreen />
+              </ErrorBoundary>
+            }
+          />
+          <Route
+            path="coach"
+            element={
+              <ErrorBoundary>
+                <CoachScreen />
               </ErrorBoundary>
             }
           />

@@ -99,7 +99,7 @@ async def search(
         return []
 
     query_vec = await embed_text(query)
-    scored = [
+    scored: List[Dict[str, Any]] = [
         {"id": r.id, "score": _cosine_similarity(query_vec, r.vector), "metadata": r.metadata}
         for r in _index
     ]

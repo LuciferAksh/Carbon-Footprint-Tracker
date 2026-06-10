@@ -102,7 +102,9 @@ export default function MonthlyReport() {
           <Calendar size={20} className="text-primary-400" aria-hidden="true" />
           <h1 className="text-2xl font-bold text-white">Monthly Report</h1>
         </div>
-        <p className="text-dark-400 text-sm">{report.month} {report.year}</p>
+        <p className="text-dark-400 text-sm">
+          {report.month} {report.year}
+        </p>
       </header>
 
       {/* Hero Stats */}
@@ -118,8 +120,11 @@ export default function MonthlyReport() {
             ) : (
               <TrendingUp size={16} className="text-red-400" aria-hidden="true" />
             )}
-            <span className={`text-sm font-medium ${isImproved ? 'text-green-400' : 'text-red-400'}`}>
-              {Math.abs(report.changePercent).toFixed(1)}% vs {report.month === 'January' ? 'December' : 'last month'}
+            <span
+              className={`text-sm font-medium ${isImproved ? 'text-green-400' : 'text-red-400'}`}
+            >
+              {Math.abs(report.changePercent).toFixed(1)}% vs{' '}
+              {report.month === 'January' ? 'December' : 'last month'}
             </span>
           </div>
           <p className="text-xs text-dark-400 mt-2">
@@ -129,7 +134,11 @@ export default function MonthlyReport() {
       </motion.div>
 
       {/* Highlights */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+      >
         <Card className="p-5 mb-4">
           <h2 className="text-sm font-semibold text-dark-300 mb-3">🏆 Monthly Highlights</h2>
           <ul className="space-y-2" role="list">
@@ -143,7 +152,11 @@ export default function MonthlyReport() {
       </motion.div>
 
       {/* Weekly Trend */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
         <Card className="p-4 mb-4">
           <h2 className="text-sm font-semibold text-dark-300 mb-3">Weekly Trend</h2>
           <div className="space-y-3">
@@ -153,12 +166,16 @@ export default function MonthlyReport() {
                 <div className="flex-1 h-3 bg-dark-800 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
-                    animate={{ width: `${(w.amount / Math.max(...report.weeklyTrend.map(x => x.amount))) * 100}%` }}
+                    animate={{
+                      width: `${(w.amount / Math.max(...report.weeklyTrend.map((x) => x.amount))) * 100}%`,
+                    }}
                     transition={{ duration: 0.8, delay: 0.3 + i * 0.1 }}
                     className="h-full bg-primary-500 rounded-full"
                   />
                 </div>
-                <span className="text-xs text-dark-300 w-12 text-right">{w.amount.toFixed(1)} kg</span>
+                <span className="text-xs text-dark-300 w-12 text-right">
+                  {w.amount.toFixed(1)} kg
+                </span>
               </div>
             ))}
           </div>

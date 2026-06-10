@@ -29,28 +29,20 @@ const LoadingSpinner = React.memo<LoadingSpinnerProps>(function LoadingSpinner({
   fullScreen = false,
 }) {
   const content = (
-    <div className="flex flex-col items-center gap-3" role="status" aria-label="Loading">
+    <div className="flex flex-col items-center gap-3" role="status" aria-label="Loading" aria-live="polite">
       <Leaf className={`${sizeMap[size]} text-primary-500 animate-spin`} aria-hidden="true" />
-      {message && (
-        <p className="text-sm text-dark-400 animate-pulse">{message}</p>
-      )}
+      {message && <p className="text-sm text-dark-400 animate-pulse">{message}</p>}
       <span className="sr-only">Loading...</span>
     </div>
   );
 
   if (fullScreen) {
     return (
-      <div className="min-h-dvh flex items-center justify-center gradient-dark">
-        {content}
-      </div>
+      <div className="min-h-dvh flex items-center justify-center gradient-dark">{content}</div>
     );
   }
 
-  return (
-    <div className="flex items-center justify-center py-12">
-      {content}
-    </div>
-  );
+  return <div className="flex items-center justify-center py-12">{content}</div>;
 });
 
 export default LoadingSpinner;

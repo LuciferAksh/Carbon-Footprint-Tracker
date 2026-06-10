@@ -2,7 +2,13 @@
  * @fileoverview Core TypeScript interfaces for the CarbonCoach application.
  */
 
-import type { ActivityCategory, TransportType, FoodType, EnergyType, ShoppingType } from '@/lib/carbon-constants';
+import type {
+  ActivityCategory,
+  TransportType,
+  FoodType,
+  EnergyType,
+  ShoppingType,
+} from '@/lib/carbon-constants';
 
 /** Firebase user profile */
 export interface UserProfile {
@@ -12,6 +18,12 @@ export interface UserProfile {
   photoURL: string | null;
   onboardingComplete: boolean;
   createdAt: string;
+  carbonProfileType?: string;
+  estimatedAnnualKg?: number;
+  topCategories?: string[];
+  carbonProfile?: CarbonProfile;
+  streak?: number;
+  badges?: string[];
 }
 
 /** Onboarding quiz answers */

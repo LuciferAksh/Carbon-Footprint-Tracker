@@ -1,0 +1,16 @@
+{
+  "short_name": "CarbonCoach",
+  "name": "CarbonCoach — Track Your Carbon Footprint",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "display": "standalone",
+  "orientation": "portrait"
+}

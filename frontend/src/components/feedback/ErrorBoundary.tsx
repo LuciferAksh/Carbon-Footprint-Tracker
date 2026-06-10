@@ -46,17 +46,12 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
       }
 
       return (
-        <div
-          className="min-h-[50vh] flex items-center justify-center p-6"
-          role="alert"
-        >
+        <div className="min-h-[50vh] flex items-center justify-center p-6" role="alert">
           <div className="glass rounded-2xl p-8 max-w-md w-full text-center space-y-4">
             <div className="w-16 h-16 rounded-full bg-error/10 flex items-center justify-center mx-auto">
               <AlertTriangle className="w-8 h-8 text-error" aria-hidden="true" />
             </div>
-            <h2 className="text-xl font-bold text-dark-100">
-              Something went wrong
-            </h2>
+            <h2 className="text-xl font-bold text-dark-100">Something went wrong</h2>
             <p className="text-sm text-dark-400">
               {this.state.error?.message || 'An unexpected error occurred. Please try again.'}
             </p>

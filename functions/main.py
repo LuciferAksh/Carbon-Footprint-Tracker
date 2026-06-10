@@ -165,7 +165,7 @@ def _call_gemini_for_challenge(prompt: str) -> dict[str, Any] | None:
     """
     try:
         model = GenerativeModel(
-            "gemini-1.5-pro",
+            "gemini-2.5-flash",
             system_instruction=SYSTEM_PROMPT,
         )
 

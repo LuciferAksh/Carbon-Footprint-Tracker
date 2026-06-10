@@ -5,7 +5,7 @@
 import { auth } from './firebase';
 
 /** Base URL for API requests */
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api/v1';
 
 /** Response wrapper for API calls */
 interface ApiResponse<T> {
@@ -72,10 +72,7 @@ async function buildHeaders(): Promise<Record<string, string>> {
  * @param options - Fetch options
  * @returns Parsed response data
  */
-async function request<T>(
-  endpoint: string,
-  options: RequestInit = {},
-): Promise<ApiResponse<T>> {
+async function request<T>(endpoint: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
   const url = `${API_BASE_URL}${endpoint}`;
   const headers = await buildHeaders();
 

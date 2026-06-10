@@ -94,7 +94,8 @@ const BarChart = React.memo<BarChartProps>(function BarChart({
           titleFont: { family: 'Inter', weight: 600 as const },
           bodyFont: { family: 'Inter' },
           callbacks: {
-            label: (context) => ` ${context.dataset.label}: ${(context.parsed.y ?? 0).toFixed(1)} kg CO₂`,
+            label: (context) =>
+              ` ${context.dataset.label}: ${(context.parsed.y ?? 0).toFixed(1)} kg CO₂`,
           },
         },
       },

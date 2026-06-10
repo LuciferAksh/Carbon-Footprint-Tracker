@@ -65,7 +65,10 @@ const ToastItem = React.memo<{ toast: ToastMessage; onRemove: (id: string) => vo
         aria-live="assertive"
       >
         <div className="flex items-start gap-3">
-          <Icon className={`w-5 h-5 shrink-0 mt-0.5 ${iconColorMap[toast.type]}`} aria-hidden="true" />
+          <Icon
+            className={`w-5 h-5 shrink-0 mt-0.5 ${iconColorMap[toast.type]}`}
+            aria-hidden="true"
+          />
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-dark-100">{toast.title}</p>
             <p className="text-xs text-dark-400 mt-0.5">{toast.message}</p>
@@ -75,7 +78,7 @@ const ToastItem = React.memo<{ toast: ToastMessage; onRemove: (id: string) => vo
             className="text-dark-400 hover:text-dark-200 transition-colors p-0.5 rounded"
             aria-label="Dismiss notification"
           >
-            <X className="w-4 h-4" />
+            <X className="w-4 h-4" aria-hidden="true" />
           </button>
         </div>
       </motion.div>
@@ -103,10 +106,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
   return (
     <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
-      <div
-        className="fixed top-4 right-4 z-50 flex flex-col gap-2"
-        aria-label="Notifications"
-      >
+      <div className="fixed top-4 right-4 z-50 flex flex-col gap-2" aria-label="Notifications">
         <AnimatePresence mode="sync">
           {toasts.map((toast) => (
             <ToastItem key={toast.id} toast={toast} onRemove={removeToast} />

@@ -4,13 +4,7 @@
  */
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { motion } from 'framer-motion';
-import {
-  Leaf,
-  TrendingDown,
-  Target,
-  Lightbulb,
-  ArrowRight,
-} from 'lucide-react';
+import { Leaf, TrendingDown, Target, Lightbulb, ArrowRight } from 'lucide-react';
 import type { CarbonProfile } from '@/types';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
@@ -124,8 +118,7 @@ const ProfileResult = React.memo<ProfileResultProps>(function ProfileResult({
                 strokeDasharray={`${2 * Math.PI * 52}`}
                 initial={{ strokeDashoffset: 2 * Math.PI * 52 }}
                 animate={{
-                  strokeDashoffset:
-                    2 * Math.PI * 52 * (1 - profile.carbonScore / 100),
+                  strokeDashoffset: 2 * Math.PI * 52 * (1 - profile.carbonScore / 100),
                 }}
                 transition={{ duration: 2, ease: 'easeOut', delay: 0.5 }}
               />
@@ -135,7 +128,9 @@ const ProfileResult = React.memo<ProfileResultProps>(function ProfileResult({
               <span className={`text-4xl font-bold ${getScoreColor(profile.carbonScore)}`}>
                 {Math.round(animatedScore)}
               </span>
-              <span className="text-xs text-dark-400 mt-1">{getScoreLabel(profile.carbonScore)}</span>
+              <span className="text-xs text-dark-400 mt-1">
+                {getScoreLabel(profile.carbonScore)}
+              </span>
             </div>
           </div>
         </motion.div>
@@ -189,7 +184,8 @@ const ProfileResult = React.memo<ProfileResultProps>(function ProfileResult({
             <div className="flex items-center gap-2 pt-1">
               <TrendingDown className="w-4 h-4 text-green-400" aria-hidden="true" />
               <span className="text-sm text-green-400 font-medium">
-                {profile.percentile}th percentile — better than {100 - profile.percentile}% of users!
+                {profile.percentile}th percentile — better than {100 - profile.percentile}% of
+                users!
               </span>
             </div>
           </Card>
