@@ -1,7 +1,7 @@
 # Graph Report - C:\Prompt wars 2  (2026-06-11)
 
 ## Corpus Check
-- 108 files · ~322,007 words
+- 108 files · ~323,969 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary

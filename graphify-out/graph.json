@@ -305,63 +305,63 @@
       "file_type": "rationale",
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\challenge.py",
       "source_location": "L23",
-      "id": "challenge_rationale_23",
       "community": 8,
-      "norm_label": "return the current iso week as ``yyyy-wnn``."
+      "norm_label": "return the current iso week as ``yyyy-wnn``.",
+      "id": "challenge_rationale_23"
     },
     {
       "label": "Create a new weekly challenge for the current ISO week.",
       "file_type": "rationale",
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\challenge.py",
       "source_location": "L38",
-      "id": "challenge_rationale_38",
       "community": 8,
-      "norm_label": "create a new weekly challenge for the current iso week."
+      "norm_label": "create a new weekly challenge for the current iso week.",
+      "id": "challenge_rationale_38"
     },
     {
       "label": "Retrieve the current week's challenge, creating a default one if none exists.",
       "file_type": "rationale",
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\challenge.py",
       "source_location": "L64",
-      "id": "challenge_rationale_64",
       "community": 8,
-      "norm_label": "retrieve the current week's challenge, creating a default one if none exists."
+      "norm_label": "retrieve the current week's challenge, creating a default one if none exists.",
+      "id": "challenge_rationale_64"
     },
     {
       "label": "Return every challenge for the authenticated user.",
       "file_type": "rationale",
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\challenge.py",
       "source_location": "L104",
-      "id": "challenge_rationale_104",
       "community": 8,
-      "norm_label": "return every challenge for the authenticated user."
+      "norm_label": "return every challenge for the authenticated user.",
+      "id": "challenge_rationale_104"
     },
     {
       "label": "Retrieve a single challenge by its ID.",
       "file_type": "rationale",
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\challenge.py",
       "source_location": "L137",
-      "id": "challenge_rationale_137",
       "community": 8,
-      "norm_label": "retrieve a single challenge by its id."
+      "norm_label": "retrieve a single challenge by its id.",
+      "id": "challenge_rationale_137"
     },
     {
       "label": "Mark a challenge as completed.",
       "file_type": "rationale",
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\challenge.py",
       "source_location": "L157",
-      "id": "challenge_rationale_157",
       "community": 8,
-      "norm_label": "mark a challenge as completed."
+      "norm_label": "mark a challenge as completed.",
+      "id": "challenge_rationale_157"
     },
     {
       "label": "Ask Gemini to suggest a challenge for *category* and save it.",
       "file_type": "rationale",
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\challenge.py",
       "source_location": "L182",
-      "id": "challenge_rationale_182",
       "community": 8,
-      "norm_label": "ask gemini to suggest a challenge for *category* and save it."
+      "norm_label": "ask gemini to suggest a challenge for *category* and save it.",
+      "id": "challenge_rationale_182"
     },
     {
       "label": "health.py",
@@ -476,9 +476,9 @@
       "file_type": "rationale",
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L35",
-      "id": "insights_rationale_35",
       "community": 5,
-      "norm_label": "retrieve or generate the monthly carbon report including ai narrative."
+      "norm_label": "retrieve or generate the monthly carbon report including ai narrative.",
+      "id": "insights_rationale_35"
     },
     {
       "label": "Generate a dynamic sustainability quiz question via Gemini.",
@@ -8431,9 +8431,9 @@
       "weight": 0.8,
       "_src": "challenge_rationale_23",
       "_tgt": "challenge_challengecreate",
+      "confidence_score": 0.5,
       "source": "challenge_rationale_23",
-      "target": "challenge_challengecreate",
-      "confidence_score": 0.5
+      "target": "challenge_challengecreate"
     },
     {
       "relation": "uses",
@@ -8443,9 +8443,9 @@
       "weight": 0.8,
       "_src": "challenge_rationale_23",
       "_tgt": "challenge_challengeresponse",
+      "confidence_score": 0.5,
       "source": "challenge_rationale_23",
-      "target": "challenge_challengeresponse",
-      "confidence_score": 0.5
+      "target": "challenge_challengeresponse"
     },
     {
       "relation": "uses",
@@ -8455,9 +8455,9 @@
       "weight": 0.8,
       "_src": "challenge_rationale_38",
       "_tgt": "challenge_challengecreate",
+      "confidence_score": 0.5,
       "source": "challenge_rationale_38",
-      "target": "challenge_challengecreate",
-      "confidence_score": 0.5
+      "target": "challenge_challengecreate"
     },
     {
       "relation": "uses",
@@ -8467,9 +8467,9 @@
       "weight": 0.8,
       "_src": "challenge_rationale_38",
       "_tgt": "challenge_challengeresponse",
+      "confidence_score": 0.5,
       "source": "challenge_rationale_38",
-      "target": "challenge_challengeresponse",
-      "confidence_score": 0.5
+      "target": "challenge_challengeresponse"
     },
     {
       "relation": "uses",
@@ -8479,9 +8479,9 @@
       "weight": 0.8,
       "_src": "challenge_rationale_64",
       "_tgt": "challenge_challengecreate",
+      "confidence_score": 0.5,
       "source": "challenge_rationale_64",
-      "target": "challenge_challengecreate",
-      "confidence_score": 0.5
+      "target": "challenge_challengecreate"
     },
     {
       "relation": "uses",
@@ -8491,9 +8491,9 @@
       "weight": 0.8,
       "_src": "challenge_rationale_64",
       "_tgt": "challenge_challengeresponse",
+      "confidence_score": 0.5,
       "source": "challenge_rationale_64",
-      "target": "challenge_challengeresponse",
-      "confidence_score": 0.5
+      "target": "challenge_challengeresponse"
     },
     {
       "relation": "uses",
@@ -8503,9 +8503,9 @@
       "weight": 0.8,
       "_src": "challenge_rationale_104",
       "_tgt": "challenge_challengecreate",
+      "confidence_score": 0.5,
       "source": "challenge_rationale_104",
-      "target": "challenge_challengecreate",
-      "confidence_score": 0.5
+      "target": "challenge_challengecreate"
     },
     {
       "relation": "uses",
@@ -8515,9 +8515,9 @@
       "weight": 0.8,
       "_src": "challenge_rationale_104",
       "_tgt": "challenge_challengeresponse",
+      "confidence_score": 0.5,
       "source": "challenge_rationale_104",
-      "target": "challenge_challengeresponse",
-      "confidence_score": 0.5
+      "target": "challenge_challengeresponse"
     },
     {
       "relation": "uses",
@@ -8527,9 +8527,9 @@
       "weight": 0.8,
       "_src": "challenge_rationale_137",
       "_tgt": "challenge_challengecreate",
+      "confidence_score": 0.5,
       "source": "challenge_rationale_137",
-      "target": "challenge_challengecreate",
-      "confidence_score": 0.5
+      "target": "challenge_challengecreate"
     },
     {
       "relation": "uses",
@@ -8539,9 +8539,9 @@
       "weight": 0.8,
       "_src": "challenge_rationale_137",
       "_tgt": "challenge_challengeresponse",
+      "confidence_score": 0.5,
       "source": "challenge_rationale_137",
-      "target": "challenge_challengeresponse",
-      "confidence_score": 0.5
+      "target": "challenge_challengeresponse"
     },
     {
       "relation": "uses",
@@ -8551,9 +8551,9 @@
       "weight": 0.8,
       "_src": "challenge_rationale_157",
       "_tgt": "challenge_challengecreate",
+      "confidence_score": 0.5,
       "source": "challenge_rationale_157",
-      "target": "challenge_challengecreate",
-      "confidence_score": 0.5
+      "target": "challenge_challengecreate"
     },
     {
       "relation": "uses",
@@ -8563,9 +8563,9 @@
       "weight": 0.8,
       "_src": "challenge_rationale_157",
       "_tgt": "challenge_challengeresponse",
+      "confidence_score": 0.5,
       "source": "challenge_rationale_157",
-      "target": "challenge_challengeresponse",
-      "confidence_score": 0.5
+      "target": "challenge_challengeresponse"
     },
     {
       "relation": "uses",
@@ -8575,9 +8575,9 @@
       "weight": 0.8,
       "_src": "challenge_rationale_182",
       "_tgt": "challenge_challengecreate",
+      "confidence_score": 0.5,
       "source": "challenge_rationale_182",
-      "target": "challenge_challengecreate",
-      "confidence_score": 0.5
+      "target": "challenge_challengecreate"
     },
     {
       "relation": "uses",
@@ -8587,9 +8587,9 @@
       "weight": 0.8,
       "_src": "challenge_rationale_182",
       "_tgt": "challenge_challengeresponse",
+      "confidence_score": 0.5,
       "source": "challenge_rationale_182",
-      "target": "challenge_challengeresponse",
-      "confidence_score": 0.5
+      "target": "challenge_challengeresponse"
     },
     {
       "relation": "contains",
@@ -9091,9 +9091,9 @@
       "weight": 0.8,
       "_src": "insights_rationale_35",
       "_tgt": "challenge_insightresponse",
+      "confidence_score": 0.5,
       "source": "insights_rationale_35",
-      "target": "challenge_insightresponse",
-      "confidence_score": 0.5
+      "target": "challenge_insightresponse"
     },
     {
       "relation": "uses",
@@ -9103,9 +9103,9 @@
       "weight": 0.8,
       "_src": "insights_rationale_35",
       "_tgt": "challenge_monthlyreportresponse",
+      "confidence_score": 0.5,
       "source": "insights_rationale_35",
-      "target": "challenge_monthlyreportresponse",
-      "confidence_score": 0.5
+      "target": "challenge_monthlyreportresponse"
     },
     {
       "relation": "uses",
@@ -9115,9 +9115,9 @@
       "weight": 0.8,
       "_src": "insights_rationale_35",
       "_tgt": "challenge_weeklytrendpoint",
+      "confidence_score": 0.5,
       "source": "insights_rationale_35",
-      "target": "challenge_weeklytrendpoint",
-      "confidence_score": 0.5
+      "target": "challenge_weeklytrendpoint"
     },
     {
       "relation": "uses",
@@ -9127,9 +9127,9 @@
       "weight": 0.8,
       "_src": "insights_rationale_35",
       "_tgt": "challenge_chatrequest",
+      "confidence_score": 0.5,
       "source": "insights_rationale_35",
-      "target": "challenge_chatrequest",
-      "confidence_score": 0.5
+      "target": "challenge_chatrequest"
     },
     {
       "relation": "uses",
@@ -9139,9 +9139,9 @@
       "weight": 0.8,
       "_src": "insights_rationale_35",
       "_tgt": "challenge_quizquestionresponse",
+      "confidence_score": 0.5,
       "source": "insights_rationale_35",
-      "target": "challenge_quizquestionresponse",
-      "confidence_score": 0.5
+      "target": "challenge_quizquestionresponse"
     },
     {
       "relation": "uses",
@@ -9151,9 +9151,9 @@
       "weight": 0.8,
       "_src": "insights_rationale_35",
       "_tgt": "activity_categorybreakdown",
+      "confidence_score": 0.5,
       "source": "insights_rationale_35",
-      "target": "activity_categorybreakdown",
-      "confidence_score": 0.5
+      "target": "activity_categorybreakdown"
     },
     {
       "relation": "uses",
@@ -9161,8 +9161,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_insightresponse",
-      "_tgt": "insights_rationale_161",
+      "_src": "insights_rationale_161",
+      "_tgt": "challenge_insightresponse",
       "confidence_score": 0.5,
       "source": "insights_rationale_161",
       "target": "challenge_insightresponse"
@@ -9173,8 +9173,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_monthlyreportresponse",
-      "_tgt": "insights_rationale_161",
+      "_src": "insights_rationale_161",
+      "_tgt": "challenge_monthlyreportresponse",
       "confidence_score": 0.5,
       "source": "insights_rationale_161",
       "target": "challenge_monthlyreportresponse"
@@ -9185,8 +9185,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_weeklytrendpoint",
-      "_tgt": "insights_rationale_161",
+      "_src": "insights_rationale_161",
+      "_tgt": "challenge_weeklytrendpoint",
       "confidence_score": 0.5,
       "source": "insights_rationale_161",
       "target": "challenge_weeklytrendpoint"
@@ -9197,8 +9197,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_chatrequest",
-      "_tgt": "insights_rationale_161",
+      "_src": "insights_rationale_161",
+      "_tgt": "challenge_chatrequest",
       "confidence_score": 0.5,
       "source": "insights_rationale_161",
       "target": "challenge_chatrequest"
@@ -9209,8 +9209,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_quizquestionresponse",
-      "_tgt": "insights_rationale_161",
+      "_src": "insights_rationale_161",
+      "_tgt": "challenge_quizquestionresponse",
       "confidence_score": 0.5,
       "source": "insights_rationale_161",
       "target": "challenge_quizquestionresponse"
@@ -9221,8 +9221,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L21",
       "weight": 0.8,
-      "_src": "activity_categorybreakdown",
-      "_tgt": "insights_rationale_161",
+      "_src": "insights_rationale_161",
+      "_tgt": "activity_categorybreakdown",
       "confidence_score": 0.5,
       "source": "insights_rationale_161",
       "target": "activity_categorybreakdown"
@@ -9233,8 +9233,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_insightresponse",
-      "_tgt": "insights_rationale_176",
+      "_src": "insights_rationale_176",
+      "_tgt": "challenge_insightresponse",
       "confidence_score": 0.5,
       "source": "insights_rationale_176",
       "target": "challenge_insightresponse"
@@ -9245,8 +9245,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_monthlyreportresponse",
-      "_tgt": "insights_rationale_176",
+      "_src": "insights_rationale_176",
+      "_tgt": "challenge_monthlyreportresponse",
       "confidence_score": 0.5,
       "source": "insights_rationale_176",
       "target": "challenge_monthlyreportresponse"
@@ -9257,8 +9257,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_weeklytrendpoint",
-      "_tgt": "insights_rationale_176",
+      "_src": "insights_rationale_176",
+      "_tgt": "challenge_weeklytrendpoint",
       "confidence_score": 0.5,
       "source": "insights_rationale_176",
       "target": "challenge_weeklytrendpoint"
@@ -9269,8 +9269,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_chatrequest",
-      "_tgt": "insights_rationale_176",
+      "_src": "insights_rationale_176",
+      "_tgt": "challenge_chatrequest",
       "confidence_score": 0.5,
       "source": "insights_rationale_176",
       "target": "challenge_chatrequest"
@@ -9281,8 +9281,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_quizquestionresponse",
-      "_tgt": "insights_rationale_176",
+      "_src": "insights_rationale_176",
+      "_tgt": "challenge_quizquestionresponse",
       "confidence_score": 0.5,
       "source": "insights_rationale_176",
       "target": "challenge_quizquestionresponse"
@@ -9293,8 +9293,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L21",
       "weight": 0.8,
-      "_src": "activity_categorybreakdown",
-      "_tgt": "insights_rationale_176",
+      "_src": "insights_rationale_176",
+      "_tgt": "activity_categorybreakdown",
       "confidence_score": 0.5,
       "source": "insights_rationale_176",
       "target": "activity_categorybreakdown"
@@ -9305,8 +9305,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_insightresponse",
-      "_tgt": "insights_rationale_197",
+      "_src": "insights_rationale_197",
+      "_tgt": "challenge_insightresponse",
       "confidence_score": 0.5,
       "source": "insights_rationale_197",
       "target": "challenge_insightresponse"
@@ -9317,8 +9317,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_monthlyreportresponse",
-      "_tgt": "insights_rationale_197",
+      "_src": "insights_rationale_197",
+      "_tgt": "challenge_monthlyreportresponse",
       "confidence_score": 0.5,
       "source": "insights_rationale_197",
       "target": "challenge_monthlyreportresponse"
@@ -9329,8 +9329,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_weeklytrendpoint",
-      "_tgt": "insights_rationale_197",
+      "_src": "insights_rationale_197",
+      "_tgt": "challenge_weeklytrendpoint",
       "confidence_score": 0.5,
       "source": "insights_rationale_197",
       "target": "challenge_weeklytrendpoint"
@@ -9341,8 +9341,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_chatrequest",
-      "_tgt": "insights_rationale_197",
+      "_src": "insights_rationale_197",
+      "_tgt": "challenge_chatrequest",
       "confidence_score": 0.5,
       "source": "insights_rationale_197",
       "target": "challenge_chatrequest"
@@ -9353,8 +9353,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_quizquestionresponse",
-      "_tgt": "insights_rationale_197",
+      "_src": "insights_rationale_197",
+      "_tgt": "challenge_quizquestionresponse",
       "confidence_score": 0.5,
       "source": "insights_rationale_197",
       "target": "challenge_quizquestionresponse"
@@ -9365,8 +9365,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L21",
       "weight": 0.8,
-      "_src": "activity_categorybreakdown",
-      "_tgt": "insights_rationale_197",
+      "_src": "insights_rationale_197",
+      "_tgt": "activity_categorybreakdown",
       "confidence_score": 0.5,
       "source": "insights_rationale_197",
       "target": "activity_categorybreakdown"
@@ -9377,8 +9377,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_insightresponse",
-      "_tgt": "insights_rationale_225",
+      "_src": "insights_rationale_225",
+      "_tgt": "challenge_insightresponse",
       "confidence_score": 0.5,
       "source": "insights_rationale_225",
       "target": "challenge_insightresponse"
@@ -9389,8 +9389,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_monthlyreportresponse",
-      "_tgt": "insights_rationale_225",
+      "_src": "insights_rationale_225",
+      "_tgt": "challenge_monthlyreportresponse",
       "confidence_score": 0.5,
       "source": "insights_rationale_225",
       "target": "challenge_monthlyreportresponse"
@@ -9401,8 +9401,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_weeklytrendpoint",
-      "_tgt": "insights_rationale_225",
+      "_src": "insights_rationale_225",
+      "_tgt": "challenge_weeklytrendpoint",
       "confidence_score": 0.5,
       "source": "insights_rationale_225",
       "target": "challenge_weeklytrendpoint"
@@ -9413,8 +9413,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_chatrequest",
-      "_tgt": "insights_rationale_225",
+      "_src": "insights_rationale_225",
+      "_tgt": "challenge_chatrequest",
       "confidence_score": 0.5,
       "source": "insights_rationale_225",
       "target": "challenge_chatrequest"
@@ -9425,8 +9425,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_quizquestionresponse",
-      "_tgt": "insights_rationale_225",
+      "_src": "insights_rationale_225",
+      "_tgt": "challenge_quizquestionresponse",
       "confidence_score": 0.5,
       "source": "insights_rationale_225",
       "target": "challenge_quizquestionresponse"
@@ -9437,8 +9437,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L21",
       "weight": 0.8,
-      "_src": "activity_categorybreakdown",
-      "_tgt": "insights_rationale_225",
+      "_src": "insights_rationale_225",
+      "_tgt": "activity_categorybreakdown",
       "confidence_score": 0.5,
       "source": "insights_rationale_225",
       "target": "activity_categorybreakdown"
@@ -9449,8 +9449,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_insightresponse",
-      "_tgt": "insights_rationale_263",
+      "_src": "insights_rationale_263",
+      "_tgt": "challenge_insightresponse",
       "confidence_score": 0.5,
       "source": "insights_rationale_263",
       "target": "challenge_insightresponse"
@@ -9461,8 +9461,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_monthlyreportresponse",
-      "_tgt": "insights_rationale_263",
+      "_src": "insights_rationale_263",
+      "_tgt": "challenge_monthlyreportresponse",
       "confidence_score": 0.5,
       "source": "insights_rationale_263",
       "target": "challenge_monthlyreportresponse"
@@ -9473,8 +9473,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_weeklytrendpoint",
-      "_tgt": "insights_rationale_263",
+      "_src": "insights_rationale_263",
+      "_tgt": "challenge_weeklytrendpoint",
       "confidence_score": 0.5,
       "source": "insights_rationale_263",
       "target": "challenge_weeklytrendpoint"
@@ -9485,8 +9485,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_chatrequest",
-      "_tgt": "insights_rationale_263",
+      "_src": "insights_rationale_263",
+      "_tgt": "challenge_chatrequest",
       "confidence_score": 0.5,
       "source": "insights_rationale_263",
       "target": "challenge_chatrequest"
@@ -9497,8 +9497,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "challenge_quizquestionresponse",
-      "_tgt": "insights_rationale_263",
+      "_src": "insights_rationale_263",
+      "_tgt": "challenge_quizquestionresponse",
       "confidence_score": 0.5,
       "source": "insights_rationale_263",
       "target": "challenge_quizquestionresponse"
@@ -9509,8 +9509,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L21",
       "weight": 0.8,
-      "_src": "activity_categorybreakdown",
-      "_tgt": "insights_rationale_263",
+      "_src": "insights_rationale_263",
+      "_tgt": "activity_categorybreakdown",
       "confidence_score": 0.5,
       "source": "insights_rationale_263",
       "target": "activity_categorybreakdown"
@@ -14981,8 +14981,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L21",
       "weight": 0.8,
-      "_src": "insights_rationale_36",
-      "_tgt": "activity_categorybreakdown",
+      "_src": "activity_categorybreakdown",
+      "_tgt": "insights_rationale_36",
       "confidence_score": 0.5,
       "source": "activity_categorybreakdown",
       "target": "insights_rationale_36"
@@ -14993,8 +14993,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L21",
       "weight": 0.8,
-      "_src": "insights_rationale_162",
-      "_tgt": "activity_categorybreakdown",
+      "_src": "activity_categorybreakdown",
+      "_tgt": "insights_rationale_162",
       "confidence_score": 0.5,
       "source": "activity_categorybreakdown",
       "target": "insights_rationale_162"
@@ -15005,8 +15005,8 @@
       "source_file": "backend\\app\\api\\insights.py",
       "source_location": "L15",
       "weight": 0.8,
-      "_src": "insights_rationale_177",
-      "_tgt": "activity_categorybreakdown",
+      "_src": "activity_categorybreakdown",
+      "_tgt": "insights_rationale_177",
       "confidence_score": 0.5,
       "source": "activity_categorybreakdown",
       "target": "insights_rationale_177"
@@ -15017,8 +15017,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L21",
       "weight": 0.8,
-      "_src": "insights_rationale_198",
-      "_tgt": "activity_categorybreakdown",
+      "_src": "activity_categorybreakdown",
+      "_tgt": "insights_rationale_198",
       "confidence_score": 0.5,
       "source": "activity_categorybreakdown",
       "target": "insights_rationale_198"
@@ -15029,8 +15029,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L21",
       "weight": 0.8,
-      "_src": "insights_rationale_226",
-      "_tgt": "activity_categorybreakdown",
+      "_src": "activity_categorybreakdown",
+      "_tgt": "insights_rationale_226",
       "confidence_score": 0.5,
       "source": "activity_categorybreakdown",
       "target": "insights_rationale_226"
@@ -15041,8 +15041,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L21",
       "weight": 0.8,
-      "_src": "insights_rationale_264",
-      "_tgt": "activity_categorybreakdown",
+      "_src": "activity_categorybreakdown",
+      "_tgt": "insights_rationale_264",
       "confidence_score": 0.5,
       "source": "activity_categorybreakdown",
       "target": "insights_rationale_264"
@@ -15461,8 +15461,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_24",
-      "_tgt": "challenge_challengecreate",
+      "_src": "challenge_challengecreate",
+      "_tgt": "challenge_rationale_24",
       "confidence_score": 0.5,
       "source": "challenge_challengecreate",
       "target": "challenge_rationale_24"
@@ -15473,8 +15473,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_39",
-      "_tgt": "challenge_challengecreate",
+      "_src": "challenge_challengecreate",
+      "_tgt": "challenge_rationale_39",
       "confidence_score": 0.5,
       "source": "challenge_challengecreate",
       "target": "challenge_rationale_39"
@@ -15485,8 +15485,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_65",
-      "_tgt": "challenge_challengecreate",
+      "_src": "challenge_challengecreate",
+      "_tgt": "challenge_rationale_65",
       "confidence_score": 0.5,
       "source": "challenge_challengecreate",
       "target": "challenge_rationale_65"
@@ -15497,8 +15497,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_105",
-      "_tgt": "challenge_challengecreate",
+      "_src": "challenge_challengecreate",
+      "_tgt": "challenge_rationale_105",
       "confidence_score": 0.5,
       "source": "challenge_challengecreate",
       "target": "challenge_rationale_105"
@@ -15509,8 +15509,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_138",
-      "_tgt": "challenge_challengecreate",
+      "_src": "challenge_challengecreate",
+      "_tgt": "challenge_rationale_138",
       "confidence_score": 0.5,
       "source": "challenge_challengecreate",
       "target": "challenge_rationale_138"
@@ -15521,8 +15521,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_158",
-      "_tgt": "challenge_challengecreate",
+      "_src": "challenge_challengecreate",
+      "_tgt": "challenge_rationale_158",
       "confidence_score": 0.5,
       "source": "challenge_challengecreate",
       "target": "challenge_rationale_158"
@@ -15533,8 +15533,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_183",
-      "_tgt": "challenge_challengecreate",
+      "_src": "challenge_challengecreate",
+      "_tgt": "challenge_rationale_183",
       "confidence_score": 0.5,
       "source": "challenge_challengecreate",
       "target": "challenge_rationale_183"
@@ -15557,8 +15557,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_24",
-      "_tgt": "challenge_challengeresponse",
+      "_src": "challenge_challengeresponse",
+      "_tgt": "challenge_rationale_24",
       "confidence_score": 0.5,
       "source": "challenge_challengeresponse",
       "target": "challenge_rationale_24"
@@ -15569,8 +15569,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_39",
-      "_tgt": "challenge_challengeresponse",
+      "_src": "challenge_challengeresponse",
+      "_tgt": "challenge_rationale_39",
       "confidence_score": 0.5,
       "source": "challenge_challengeresponse",
       "target": "challenge_rationale_39"
@@ -15581,8 +15581,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_65",
-      "_tgt": "challenge_challengeresponse",
+      "_src": "challenge_challengeresponse",
+      "_tgt": "challenge_rationale_65",
       "confidence_score": 0.5,
       "source": "challenge_challengeresponse",
       "target": "challenge_rationale_65"
@@ -15593,8 +15593,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_105",
-      "_tgt": "challenge_challengeresponse",
+      "_src": "challenge_challengeresponse",
+      "_tgt": "challenge_rationale_105",
       "confidence_score": 0.5,
       "source": "challenge_challengeresponse",
       "target": "challenge_rationale_105"
@@ -15605,8 +15605,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_138",
-      "_tgt": "challenge_challengeresponse",
+      "_src": "challenge_challengeresponse",
+      "_tgt": "challenge_rationale_138",
       "confidence_score": 0.5,
       "source": "challenge_challengeresponse",
       "target": "challenge_rationale_138"
@@ -15617,8 +15617,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_158",
-      "_tgt": "challenge_challengeresponse",
+      "_src": "challenge_challengeresponse",
+      "_tgt": "challenge_rationale_158",
       "confidence_score": 0.5,
       "source": "challenge_challengeresponse",
       "target": "challenge_rationale_158"
@@ -15629,8 +15629,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_183",
-      "_tgt": "challenge_challengeresponse",
+      "_src": "challenge_challengeresponse",
+      "_tgt": "challenge_rationale_183",
       "confidence_score": 0.5,
       "source": "challenge_challengeresponse",
       "target": "challenge_rationale_183"
@@ -15653,8 +15653,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_24",
-      "_tgt": "challenge_challengestatusupdate",
+      "_src": "challenge_challengestatusupdate",
+      "_tgt": "challenge_rationale_24",
       "confidence_score": 0.5,
       "source": "challenge_challengestatusupdate",
       "target": "challenge_rationale_24"
@@ -15665,8 +15665,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_39",
-      "_tgt": "challenge_challengestatusupdate",
+      "_src": "challenge_challengestatusupdate",
+      "_tgt": "challenge_rationale_39",
       "confidence_score": 0.5,
       "source": "challenge_challengestatusupdate",
       "target": "challenge_rationale_39"
@@ -15677,8 +15677,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_65",
-      "_tgt": "challenge_challengestatusupdate",
+      "_src": "challenge_challengestatusupdate",
+      "_tgt": "challenge_rationale_65",
       "confidence_score": 0.5,
       "source": "challenge_challengestatusupdate",
       "target": "challenge_rationale_65"
@@ -15689,8 +15689,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_105",
-      "_tgt": "challenge_challengestatusupdate",
+      "_src": "challenge_challengestatusupdate",
+      "_tgt": "challenge_rationale_105",
       "confidence_score": 0.5,
       "source": "challenge_challengestatusupdate",
       "target": "challenge_rationale_105"
@@ -15701,8 +15701,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_138",
-      "_tgt": "challenge_challengestatusupdate",
+      "_src": "challenge_challengestatusupdate",
+      "_tgt": "challenge_rationale_138",
       "confidence_score": 0.5,
       "source": "challenge_challengestatusupdate",
       "target": "challenge_rationale_138"
@@ -15713,8 +15713,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_158",
-      "_tgt": "challenge_challengestatusupdate",
+      "_src": "challenge_challengestatusupdate",
+      "_tgt": "challenge_rationale_158",
       "confidence_score": 0.5,
       "source": "challenge_challengestatusupdate",
       "target": "challenge_rationale_158"
@@ -15725,8 +15725,8 @@
       "source_file": "backend\\app\\api\\challenge.py",
       "source_location": "L13",
       "weight": 0.8,
-      "_src": "challenge_rationale_183",
-      "_tgt": "challenge_challengestatusupdate",
+      "_src": "challenge_challengestatusupdate",
+      "_tgt": "challenge_rationale_183",
       "confidence_score": 0.5,
       "source": "challenge_challengestatusupdate",
       "target": "challenge_rationale_183"
@@ -15749,8 +15749,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_36",
-      "_tgt": "challenge_insightresponse",
+      "_src": "challenge_insightresponse",
+      "_tgt": "insights_rationale_36",
       "confidence_score": 0.5,
       "source": "challenge_insightresponse",
       "target": "insights_rationale_36"
@@ -15761,8 +15761,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_162",
-      "_tgt": "challenge_insightresponse",
+      "_src": "challenge_insightresponse",
+      "_tgt": "insights_rationale_162",
       "confidence_score": 0.5,
       "source": "challenge_insightresponse",
       "target": "insights_rationale_162"
@@ -15773,8 +15773,8 @@
       "source_file": "backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_177",
-      "_tgt": "challenge_insightresponse",
+      "_src": "challenge_insightresponse",
+      "_tgt": "insights_rationale_177",
       "confidence_score": 0.5,
       "source": "challenge_insightresponse",
       "target": "insights_rationale_177"
@@ -15785,8 +15785,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_198",
-      "_tgt": "challenge_insightresponse",
+      "_src": "challenge_insightresponse",
+      "_tgt": "insights_rationale_198",
       "confidence_score": 0.5,
       "source": "challenge_insightresponse",
       "target": "insights_rationale_198"
@@ -15797,8 +15797,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_226",
-      "_tgt": "challenge_insightresponse",
+      "_src": "challenge_insightresponse",
+      "_tgt": "insights_rationale_226",
       "confidence_score": 0.5,
       "source": "challenge_insightresponse",
       "target": "insights_rationale_226"
@@ -15809,8 +15809,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_264",
-      "_tgt": "challenge_insightresponse",
+      "_src": "challenge_insightresponse",
+      "_tgt": "insights_rationale_264",
       "confidence_score": 0.5,
       "source": "challenge_insightresponse",
       "target": "insights_rationale_264"
@@ -15869,8 +15869,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_36",
-      "_tgt": "challenge_weeklytrendpoint",
+      "_src": "challenge_weeklytrendpoint",
+      "_tgt": "insights_rationale_36",
       "confidence_score": 0.5,
       "source": "challenge_weeklytrendpoint",
       "target": "insights_rationale_36"
@@ -15881,8 +15881,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_162",
-      "_tgt": "challenge_weeklytrendpoint",
+      "_src": "challenge_weeklytrendpoint",
+      "_tgt": "insights_rationale_162",
       "confidence_score": 0.5,
       "source": "challenge_weeklytrendpoint",
       "target": "insights_rationale_162"
@@ -15893,8 +15893,8 @@
       "source_file": "backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_177",
-      "_tgt": "challenge_weeklytrendpoint",
+      "_src": "challenge_weeklytrendpoint",
+      "_tgt": "insights_rationale_177",
       "confidence_score": 0.5,
       "source": "challenge_weeklytrendpoint",
       "target": "insights_rationale_177"
@@ -15905,8 +15905,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_198",
-      "_tgt": "challenge_weeklytrendpoint",
+      "_src": "challenge_weeklytrendpoint",
+      "_tgt": "insights_rationale_198",
       "confidence_score": 0.5,
       "source": "challenge_weeklytrendpoint",
       "target": "insights_rationale_198"
@@ -15917,8 +15917,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_226",
-      "_tgt": "challenge_weeklytrendpoint",
+      "_src": "challenge_weeklytrendpoint",
+      "_tgt": "insights_rationale_226",
       "confidence_score": 0.5,
       "source": "challenge_weeklytrendpoint",
       "target": "insights_rationale_226"
@@ -15929,8 +15929,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_264",
-      "_tgt": "challenge_weeklytrendpoint",
+      "_src": "challenge_weeklytrendpoint",
+      "_tgt": "insights_rationale_264",
       "confidence_score": 0.5,
       "source": "challenge_weeklytrendpoint",
       "target": "insights_rationale_264"
@@ -15989,8 +15989,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_36",
-      "_tgt": "challenge_monthlyreportresponse",
+      "_src": "challenge_monthlyreportresponse",
+      "_tgt": "insights_rationale_36",
       "confidence_score": 0.5,
       "source": "challenge_monthlyreportresponse",
       "target": "insights_rationale_36"
@@ -16001,8 +16001,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_162",
-      "_tgt": "challenge_monthlyreportresponse",
+      "_src": "challenge_monthlyreportresponse",
+      "_tgt": "insights_rationale_162",
       "confidence_score": 0.5,
       "source": "challenge_monthlyreportresponse",
       "target": "insights_rationale_162"
@@ -16013,8 +16013,8 @@
       "source_file": "backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_177",
-      "_tgt": "challenge_monthlyreportresponse",
+      "_src": "challenge_monthlyreportresponse",
+      "_tgt": "insights_rationale_177",
       "confidence_score": 0.5,
       "source": "challenge_monthlyreportresponse",
       "target": "insights_rationale_177"
@@ -16025,8 +16025,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_198",
-      "_tgt": "challenge_monthlyreportresponse",
+      "_src": "challenge_monthlyreportresponse",
+      "_tgt": "insights_rationale_198",
       "confidence_score": 0.5,
       "source": "challenge_monthlyreportresponse",
       "target": "insights_rationale_198"
@@ -16037,8 +16037,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_226",
-      "_tgt": "challenge_monthlyreportresponse",
+      "_src": "challenge_monthlyreportresponse",
+      "_tgt": "insights_rationale_226",
       "confidence_score": 0.5,
       "source": "challenge_monthlyreportresponse",
       "target": "insights_rationale_226"
@@ -16049,8 +16049,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_264",
-      "_tgt": "challenge_monthlyreportresponse",
+      "_src": "challenge_monthlyreportresponse",
+      "_tgt": "insights_rationale_264",
       "confidence_score": 0.5,
       "source": "challenge_monthlyreportresponse",
       "target": "insights_rationale_264"
@@ -16109,8 +16109,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_36",
-      "_tgt": "challenge_chatrequest",
+      "_src": "challenge_chatrequest",
+      "_tgt": "insights_rationale_36",
       "confidence_score": 0.5,
       "source": "challenge_chatrequest",
       "target": "insights_rationale_36"
@@ -16121,8 +16121,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_162",
-      "_tgt": "challenge_chatrequest",
+      "_src": "challenge_chatrequest",
+      "_tgt": "insights_rationale_162",
       "confidence_score": 0.5,
       "source": "challenge_chatrequest",
       "target": "insights_rationale_162"
@@ -16133,8 +16133,8 @@
       "source_file": "backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_177",
-      "_tgt": "challenge_chatrequest",
+      "_src": "challenge_chatrequest",
+      "_tgt": "insights_rationale_177",
       "confidence_score": 0.5,
       "source": "challenge_chatrequest",
       "target": "insights_rationale_177"
@@ -16145,8 +16145,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_198",
-      "_tgt": "challenge_chatrequest",
+      "_src": "challenge_chatrequest",
+      "_tgt": "insights_rationale_198",
       "confidence_score": 0.5,
       "source": "challenge_chatrequest",
       "target": "insights_rationale_198"
@@ -16157,8 +16157,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_226",
-      "_tgt": "challenge_chatrequest",
+      "_src": "challenge_chatrequest",
+      "_tgt": "insights_rationale_226",
       "confidence_score": 0.5,
       "source": "challenge_chatrequest",
       "target": "insights_rationale_226"
@@ -16169,8 +16169,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_264",
-      "_tgt": "challenge_chatrequest",
+      "_src": "challenge_chatrequest",
+      "_tgt": "insights_rationale_264",
       "confidence_score": 0.5,
       "source": "challenge_chatrequest",
       "target": "insights_rationale_264"
@@ -16241,8 +16241,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_36",
-      "_tgt": "challenge_quizquestionresponse",
+      "_src": "challenge_quizquestionresponse",
+      "_tgt": "insights_rationale_36",
       "confidence_score": 0.5,
       "source": "challenge_quizquestionresponse",
       "target": "insights_rationale_36"
@@ -16253,8 +16253,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_162",
-      "_tgt": "challenge_quizquestionresponse",
+      "_src": "challenge_quizquestionresponse",
+      "_tgt": "insights_rationale_162",
       "confidence_score": 0.5,
       "source": "challenge_quizquestionresponse",
       "target": "insights_rationale_162"
@@ -16265,8 +16265,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_177",
-      "_tgt": "challenge_quizquestionresponse",
+      "_src": "challenge_quizquestionresponse",
+      "_tgt": "insights_rationale_177",
       "confidence_score": 0.5,
       "source": "challenge_quizquestionresponse",
       "target": "insights_rationale_177"
@@ -16277,8 +16277,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_198",
-      "_tgt": "challenge_quizquestionresponse",
+      "_src": "challenge_quizquestionresponse",
+      "_tgt": "insights_rationale_198",
       "confidence_score": 0.5,
       "source": "challenge_quizquestionresponse",
       "target": "insights_rationale_198"
@@ -16289,8 +16289,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_226",
-      "_tgt": "challenge_quizquestionresponse",
+      "_src": "challenge_quizquestionresponse",
+      "_tgt": "insights_rationale_226",
       "confidence_score": 0.5,
       "source": "challenge_quizquestionresponse",
       "target": "insights_rationale_226"
@@ -16301,8 +16301,8 @@
       "source_file": "C:\\Prompt wars 2\\backend\\app\\api\\insights.py",
       "source_location": "L14",
       "weight": 0.8,
-      "_src": "insights_rationale_264",
-      "_tgt": "challenge_quizquestionresponse",
+      "_src": "challenge_quizquestionresponse",
+      "_tgt": "insights_rationale_264",
       "confidence_score": 0.5,
       "source": "challenge_quizquestionresponse",
       "target": "insights_rationale_264"
