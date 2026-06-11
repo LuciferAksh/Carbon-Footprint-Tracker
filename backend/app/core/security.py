@@ -48,8 +48,8 @@ def _ensure_firebase_initialized(settings: Settings) -> None:
         return
 
     try:
-        import firebase_admin  # noqa: WPS433
-        from firebase_admin import credentials  # noqa: WPS433
+        import firebase_admin  # type: ignore[import-untyped]  # noqa: WPS433
+        from firebase_admin import credentials  # type: ignore[import-untyped]  # noqa: WPS433
 
         if not firebase_admin._apps:  # type: ignore[attr-defined]
             if settings.GOOGLE_APPLICATION_CREDENTIALS:
@@ -91,7 +91,7 @@ def _verify_firebase_token(token: str, settings: Settings) -> Dict[str, Any]:
     _ensure_firebase_initialized(settings)
 
     try:
-        from firebase_admin import auth  # noqa: WPS433
+        from firebase_admin import auth  # type: ignore[import-untyped]  # noqa: WPS433
 
         decoded = auth.verify_id_token(token)
         return decoded

@@ -18,7 +18,6 @@ from httpx import ASGITransport, AsyncClient
 os.environ["MOCK_AI"] = "true"
 os.environ["RATE_LIMIT_SECONDS"] = "0"  # Disable rate limiting in tests
 
-from app.core.config import get_settings  # noqa: E402
 from app.core.rate_limiter import clear_all_rate_limits  # noqa: E402
 from app.core.security import get_current_user  # noqa: E402
 from app.main import app  # noqa: E402

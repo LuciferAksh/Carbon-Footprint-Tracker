@@ -10,6 +10,7 @@ import sys
 from unittest.mock import MagicMock, patch
 import pytest
 from fastapi import HTTPException, Request
+from httpx import AsyncClient
 
 from app.core.config import Settings
 import app.core.security as security

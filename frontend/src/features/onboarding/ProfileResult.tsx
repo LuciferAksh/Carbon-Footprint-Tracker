@@ -74,7 +74,7 @@ const ProfileResult = React.memo<ProfileResultProps>(function ProfileResult({
   }, []);
 
   return (
-    <div className="min-h-dvh gradient-dark overflow-y-auto">
+    <main id="main-content" role="main" className="min-h-dvh gradient-dark overflow-y-auto">
       <div className="fixed inset-0 gradient-radial pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-10 px-6 py-12 max-w-md mx-auto space-y-8">
@@ -234,7 +234,7 @@ const ProfileResult = React.memo<ProfileResultProps>(function ProfileResult({
           </Button>
         </motion.div>
       </div>
-    </div>
+    </main>
   );
 });
 
