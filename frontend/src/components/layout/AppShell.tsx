@@ -13,6 +13,13 @@ import BottomNav from './BottomNav';
 const AppShell = React.memo(function AppShell() {
   return (
     <div className="min-h-dvh flex flex-col gradient-dark relative overflow-hidden">
+      {/* Skip navigation (WCAG 2.4.1) — visible only on keyboard focus */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-2 focus:left-2 focus:px-4 focus:py-2 focus:bg-primary-600 focus:text-white focus:rounded-md focus:outline-none"
+      >
+        Skip to main content
+      </a>
       {/* Ambient Moving Aurora Glows */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0" aria-hidden="true">
         {/* Sphere 1 */}
@@ -23,10 +30,10 @@ const AppShell = React.memo(function AppShell() {
         <div className="absolute inset-0 gradient-radial" />
       </div>
 
-      {/* Main scrollable content */}
-      <main className="flex-1 relative z-10 pb-20 overflow-y-auto">
+      {/* Scrollable content area — child routes provide their own <main> landmark */}
+      <div className="flex-1 relative z-10 pb-20 overflow-y-auto">
         <Outlet />
-      </main>
+      </div>
 
       {/* Bottom navigation */}
       <BottomNav />

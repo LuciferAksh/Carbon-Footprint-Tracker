@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Focus management hook for accessible route transitions.
+ * Programmatically focuses the main content area when the route changes.
+ */
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 

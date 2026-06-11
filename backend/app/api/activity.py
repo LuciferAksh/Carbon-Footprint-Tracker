@@ -73,6 +73,7 @@ async def log_activity_new(
     body: ActivityLog,
     user: Dict[str, Any] = Depends(get_current_user),
 ) -> ActivityLogResponse:
+    """Forward to ``log_activity`` for compatibility with the ``/log`` endpoint."""
     return await log_activity(body, user)
 
 

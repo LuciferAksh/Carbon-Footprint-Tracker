@@ -96,6 +96,26 @@ const DonutChart = React.memo<DonutChartProps>(function DonutChart({
           {centerLabel && <span className="text-xs text-dark-400 mt-0.5">{centerLabel}</span>}
         </div>
       )}
+      {/* Screen-reader accessible data table */}
+      <table className="sr-only">
+        <caption>CO₂ breakdown by category</caption>
+        <thead>
+          <tr>
+            <th scope="col">Category</th>
+            <th scope="col">Amount (kg)</th>
+            <th scope="col">Percentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((d) => (
+            <tr key={d.category}>
+              <td>{d.category.charAt(0).toUpperCase() + d.category.slice(1)}</td>
+              <td>{d.amount.toFixed(1)}</td>
+              <td>{d.percentage.toFixed(1)}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 });

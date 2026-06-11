@@ -246,6 +246,7 @@ async def upsert_profile(
     body: ProfileCreate,
     user: Dict[str, Any] = Depends(get_current_user),
 ) -> ProfileResponse:
+    """Create or update a user profile (compatibility endpoint)."""
     uid = user["uid"]
     data = body.model_dump()
     # Check if profile already has fields
@@ -272,4 +273,5 @@ async def upsert_profile(
 async def get_profile_compatibility(
     user: Dict[str, Any] = Depends(get_current_user),
 ) -> ProfileResponse:
+    """Retrieve the user profile via the legacy ``/profile`` path."""
     return await get_profile(user)

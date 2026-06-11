@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Vitest test setup — provides browser API mocks
+ * (matchMedia, ResizeObserver, IntersectionObserver, scrollTo)
+ * required by Framer Motion, Chart.js, and other UI libraries.
+ */
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 

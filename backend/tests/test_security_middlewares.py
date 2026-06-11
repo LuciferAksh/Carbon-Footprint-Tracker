@@ -18,7 +18,10 @@ async def test_security_headers_are_present(client: AsyncClient):
     assert response.headers.get("X-Frame-Options") == "DENY"
     assert response.headers.get("Strict-Transport-Security") == "max-age=63072000; includeSubDomains; preload"
     assert response.headers.get("X-XSS-Protection") == "1; mode=block"
-    assert response.headers.get("Referrer-Policy") == "no-referrer-when-downgrade"
+    assert response.headers.get("Referrer-Policy") == "strict-origin-when-cross-origin"
+    assert "default-src 'self'" in response.headers.get("Content-Security-Policy", "")
+    assert "frame-ancestors 'none'" in response.headers.get("Content-Security-Policy", "")
+    assert "camera=()" in response.headers.get("Permissions-Policy", "")
 
 
 @pytest.mark.anyio

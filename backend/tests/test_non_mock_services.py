@@ -42,6 +42,9 @@ class MockDocumentSnapshot:
 class MockCollectionReference:
     def __init__(self, path):
         self.path = path
+    def limit(self, count):
+        """Support fluent chaining like real Firestore queries."""
+        return self
     def stream(self):
         return [MockDocumentSnapshot(self.path + "/doc1", {"title": "C1"}, doc_id="doc1")]
 

@@ -67,6 +67,12 @@ app = FastAPI(
 
 @app.middleware("http")
 async def add_request_id(request: Request, call_next):
+    """Attach a unique request ID to every request/response cycle.
+
+    If the client sends an ``X-Request-ID`` header it is reused;
+    otherwise a new UUID-4 is generated.  The same value is echoed
+    back in the response header for traceability.
+    """
     request_id = request.headers.get("X-Request-ID", str(uuid.uuid4()))
     request.state.request_id = request_id
     response = await call_next(request)
@@ -76,6 +82,11 @@ async def add_request_id(request: Request, call_next):
 
 @app.middleware("http")
 async def limit_body_size(request: Request, call_next):
+    """Reject requests whose ``Content-Length`` exceeds 1 MB.
+
+    This is a defence-in-depth measure that protects the server
+    from oversized payloads before they reach the route handler.
+    """
     content_length = request.headers.get("content-length")
     if content_length:
         try:
@@ -91,12 +102,27 @@ async def limit_body_size(request: Request, call_next):
 
 @app.middleware("http")
 async def add_security_headers(request: Request, call_next):
+    """Inject standard security headers into every HTTP response.
+
+    Covers OWASP-recommended headers: HSTS, X-Content-Type-Options,
+    X-Frame-Options, CSP, Permissions-Policy, and Referrer-Policy.
+    """
     response = await call_next(request)
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Strict-Transport-Security"] = "max-age=63072000; includeSubDomains; preload"
     response.headers["X-XSS-Protection"] = "1; mode=block"
-    response.headers["Referrer-Policy"] = "no-referrer-when-downgrade"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; "
+        "script-src 'self'; "
+        "style-src 'self' 'unsafe-inline'; "
+        "img-src 'self' data:; "
+        "frame-ancestors 'none'"
+    )
+    response.headers["Permissions-Policy"] = (
+        "camera=(), microphone=(), geolocation=(), payment=()"
+    )
     return response
 
 

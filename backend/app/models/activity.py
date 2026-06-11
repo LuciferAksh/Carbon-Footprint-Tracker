@@ -191,37 +191,81 @@ class ActivityLogResponse(BaseModel):
 
 
 class WeeklyDataPoint(BaseModel):
-    day: str
-    thisWeek: float
-    lastWeek: float
+    """A single data point comparing emissions between two weeks.
+
+    Attributes:
+        day: Abbreviated day name (e.g. ``Mon``, ``Tue``).
+        thisWeek: CO\u2082 emissions for the day in the current week (kg).
+        lastWeek: CO\u2082 emissions for the same day in the previous week (kg).
+    """
+
+    day: str = Field(..., description="Abbreviated day name")
+    thisWeek: float = Field(..., description="Current week CO\u2082 (kg)")
+    lastWeek: float = Field(..., description="Previous week CO\u2082 (kg)")
 
 
 class CategoryBreakdown(BaseModel):
-    category: str
-    amount: float
-    percentage: float
-    color: str
+    """Emission breakdown for a single activity category.
+
+    Attributes:
+        category: Category key (``transport``, ``food``, ``energy``, ``shopping``).
+        amount: Total CO\u2082 for this category (kg).
+        percentage: Share of total emissions (0\u2013100).
+        color: Hex colour code for chart rendering.
+    """
+
+    category: str = Field(..., description="Category key")
+    amount: float = Field(..., description="Total CO\u2082 in kg")
+    percentage: float = Field(..., description="Percentage of total")
+    color: str = Field(..., description="Chart hex colour")
 
 
 class DashboardBenchmark(BaseModel):
-    user: float
-    national: float
-    target: float
+    """Annualised CO\u2082 benchmarks for the dashboard comparison chart.
+
+    Attributes:
+        user: User's projected annual emissions (kg).
+        national: Indian national average annual emissions (kg).
+        target: Recommended sustainability target (kg).
+    """
+
+    user: float = Field(..., description="User annual CO\u2082 (kg)")
+    national: float = Field(..., description="National average annual CO\u2082 (kg)")
+    target: float = Field(..., description="Sustainability target (kg)")
 
 
 class DashboardData(BaseModel):
-    totalCO2Today: float
-    totalCO2Week: float
-    totalCO2Month: float
-    weeklyComparison: List[WeeklyDataPoint]
-    categoryBreakdown: List[CategoryBreakdown]
-    streak: int
-    carbonScore: int
-    benchmark: DashboardBenchmark
+    """Aggregate dashboard payload returned by ``GET /activity/summary``.
+
+    Attributes:
+        totalCO2Today: Emissions for today (kg).
+        totalCO2Week: Emissions for the last 7 days (kg).
+        totalCO2Month: Emissions for the last 30 days (kg).
+        weeklyComparison: Daily this-week vs last-week data points.
+        categoryBreakdown: Per-category totals and percentages.
+        streak: Consecutive days with logged activities.
+        carbonScore: User's overall carbon score (0\u2013100).
+        benchmark: Annualised benchmark comparison.
+    """
+
+    totalCO2Today: float = Field(..., description="Today's CO\u2082 (kg)")
+    totalCO2Week: float = Field(..., description="Last 7 days CO\u2082 (kg)")
+    totalCO2Month: float = Field(..., description="Last 30 days CO\u2082 (kg)")
+    weeklyComparison: List[WeeklyDataPoint] = Field(..., description="Daily comparison data")
+    categoryBreakdown: List[CategoryBreakdown] = Field(..., description="Per-category breakdown")
+    streak: int = Field(..., description="Consecutive logging days")
+    carbonScore: int = Field(..., description="Carbon score 0\u2013100")
+    benchmark: DashboardBenchmark = Field(..., description="Annualised benchmarks")
 
 
 class ParseTextRequest(BaseModel):
-    text: str
+    """Request body for natural-language activity parsing via Gemini.
+
+    Attributes:
+        text: Free-form description of daily carbon activities.
+    """
+
+    text: str = Field(..., description="Free-form activity description")
 
     model_config = {
         "json_schema_extra": {
@@ -231,18 +275,39 @@ class ParseTextRequest(BaseModel):
 
 
 class CommunityAnalyticsPoint(BaseModel):
-    category: str
-    avg_co2_kg: float
-    median_co2_kg: float
-    p20_co2_kg: float
-    p80_co2_kg: float
-    total_users: int
-    week: str
+    """A single aggregated community analytics row from BigQuery.
+
+    Attributes:
+        category: Emission category (transport, food, energy, shopping).
+        avg_co2_kg: Average weekly CO\u2082 across all users (kg).
+        median_co2_kg: Median weekly CO\u2082 (kg).
+        p20_co2_kg: 20th-percentile weekly CO\u2082 (kg).
+        p80_co2_kg: 80th-percentile weekly CO\u2082 (kg).
+        total_users: Number of users contributing to this data point.
+        week: ISO week identifier (e.g. ``2026-W24``).
+    """
+
+    category: str = Field(..., description="Emission category")
+    avg_co2_kg: float = Field(..., description="Average CO\u2082 (kg)")
+    median_co2_kg: float = Field(..., description="Median CO\u2082 (kg)")
+    p20_co2_kg: float = Field(..., description="20th percentile CO\u2082 (kg)")
+    p80_co2_kg: float = Field(..., description="80th percentile CO\u2082 (kg)")
+    total_users: int = Field(..., description="Number of contributing users")
+    week: str = Field(..., description="ISO week identifier")
 
 
 class CommunityAnalyticsResponse(BaseModel):
-    page: int
-    size: int
-    total: int
-    results: List[CommunityAnalyticsPoint]
+    """Paginated response for community analytics queries.
+
+    Attributes:
+        page: Current page number (1-indexed).
+        size: Number of results per page.
+        total: Total number of matching records.
+        results: List of analytics data points for this page.
+    """
+
+    page: int = Field(..., description="Current page number")
+    size: int = Field(..., description="Results per page")
+    total: int = Field(..., description="Total record count")
+    results: List[CommunityAnalyticsPoint] = Field(..., description="Analytics data points")
 

@@ -369,7 +369,7 @@ export default function CoachScreen() {
                     className="flex justify-center"
                   >
                     <Card className="p-3 bg-red-950/20 border-red-800/30 text-red-400 text-xs flex items-center gap-2">
-                      <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                      <AlertCircle className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
                       <span>{error}</span>
                       <button
                         onClick={() =>

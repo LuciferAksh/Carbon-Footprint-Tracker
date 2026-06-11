@@ -79,6 +79,21 @@ async def _generate_text_gemini_api(
     prompt: str,
     settings: Settings,
 ) -> str:
+    """Call the Gemini REST API directly using an API key.
+
+    This is the preferred path when ``GEMINI_API_KEY`` is configured
+    because it avoids the heavier Vertex AI SDK initialisation.
+
+    Args:
+        prompt: The user-facing prompt text.
+        settings: App settings (provides API key and model name).
+
+    Returns:
+        The generated text from Gemini.
+
+    Raises:
+        ValueError: If the response format is unexpected.
+    """
     import httpx
     
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{settings.GEMINI_MODEL}:generateContent?key={settings.GEMINI_API_KEY}"

@@ -79,21 +79,39 @@ class ChallengeCreate(BaseModel):
 
 
 class ChallengeResponse(BaseModel):
-    """Response shape for a weekly challenge."""
+    """Response shape for a weekly challenge.
+
+    Attributes:
+        id: Challenge identifier in ``YYYY-WNN`` format.
+        title: Short display title.
+        description: Detailed challenge instructions.
+        category: Emission category (transport, food, energy, shopping).
+        targetMetric: Quantitative goal description.
+        co2SavingKg: Estimated CO₂ saving if completed (kg).
+        status: Current status (active, completed, failed).
+        difficulty: Difficulty level (easy, medium, hard).
+        durationDays: Challenge duration in days.
+        co2SavedTarget: Target CO₂ saving (kg).
+        co2SavedActual: Actual CO₂ saved so far (kg).
+        progress: Completion progress (0–100).
+        participants: Number of participants.
+        tips: List of helpful tips for completing the challenge.
+    """
+
     id: str = Field(..., description="Challenge ID (YYYY-WW)")
-    title: str
-    description: str
-    category: str
-    targetMetric: str
-    co2SavingKg: float
+    title: str = Field(..., description="Challenge title")
+    description: str = Field(..., description="Challenge instructions")
+    category: str = Field(..., description="Emission category")
+    targetMetric: str = Field(..., description="Quantitative goal")
+    co2SavingKg: float = Field(..., description="Estimated CO₂ saving (kg)")
     status: str = Field(default="active", description="Challenge status")
-    difficulty: str = "medium"
-    durationDays: int = 7
-    co2SavedTarget: float = 5.0
-    co2SavedActual: float = 0.0
-    progress: float = 0.0
-    participants: int = 124
-    tips: List[str] = Field(default_factory=list)
+    difficulty: str = Field(default="medium", description="Difficulty level")
+    durationDays: int = Field(default=7, description="Duration in days")
+    co2SavedTarget: float = Field(default=5.0, description="Target CO₂ saving (kg)")
+    co2SavedActual: float = Field(default=0.0, description="Actual CO₂ saved (kg)")
+    progress: float = Field(default=0.0, description="Completion progress 0–100")
+    participants: int = Field(default=124, description="Number of participants")
+    tips: List[str] = Field(default_factory=list, description="Helpful tips")
 
 
     model_config = {
@@ -195,31 +213,67 @@ class InsightResponse(BaseModel):
 
 
 class WeeklyTrendPoint(BaseModel):
-    week: str
-    amount: float
+    """A data point in the monthly weekly-trend chart.
+
+    Attributes:
+        week: Week label (e.g. ``W1``, ``W2``, ``W3``, ``W4``).
+        amount: Total CO\u2082 for that week segment (kg).
+    """
+
+    week: str = Field(..., description="Week label")
+    amount: float = Field(..., description="Total CO\u2082 for the week (kg)")
 
 
 class MonthlyReportResponse(BaseModel):
-    month: str
-    year: int
-    totalCO2: float
-    previousMonthCO2: float
-    changePercent: float
-    dailyAverage: float
-    categoryBreakdown: List[CategoryBreakdown]
-    weeklyTrend: List[WeeklyTrendPoint]
-    geminiNarrative: str
-    highlights: List[str]
-    score: int
+    """Full monthly carbon-footprint report with AI narrative.
+
+    Attributes:
+        month: Month identifier (``YYYY-MM``).
+        year: Calendar year.
+        totalCO2: Total emissions for the month (kg).
+        previousMonthCO2: Previous month's total emissions (kg).
+        changePercent: Month-over-month change percentage.
+        dailyAverage: Average daily emissions (kg).
+        categoryBreakdown: Per-category emission breakdown.
+        weeklyTrend: Weekly aggregated emission trend.
+        geminiNarrative: AI-generated narrative insight.
+        highlights: Key achievements or observations.
+        score: Monthly carbon score (0\u2013100).
+    """
+
+    month: str = Field(..., description="Month identifier (YYYY-MM)")
+    year: int = Field(..., description="Calendar year")
+    totalCO2: float = Field(..., description="Total month emissions (kg)")
+    previousMonthCO2: float = Field(..., description="Previous month emissions (kg)")
+    changePercent: float = Field(..., description="Month-over-month change %")
+    dailyAverage: float = Field(..., description="Average daily emissions (kg)")
+    categoryBreakdown: List[CategoryBreakdown] = Field(..., description="Per-category breakdown")
+    weeklyTrend: List[WeeklyTrendPoint] = Field(..., description="Weekly trend data")
+    geminiNarrative: str = Field(..., description="AI-generated narrative")
+    highlights: List[str] = Field(..., description="Key highlights")
+    score: int = Field(..., description="Monthly carbon score 0\u2013100")
 
 
 class ChatMessage(BaseModel):
-    role: str
-    content: str
+    """A single message in a coach conversation.
+
+    Attributes:
+        role: Sender role (``user`` or ``assistant``).
+        content: Message text content.
+    """
+
+    role: str = Field(..., description="Sender role (user | assistant)")
+    content: str = Field(..., description="Message text")
 
 
 class ChatRequest(BaseModel):
-    messages: List[ChatMessage]
+    """Request body for the AI coach chat endpoint.
+
+    Attributes:
+        messages: Ordered list of conversation messages.
+    """
+
+    messages: List[ChatMessage] = Field(..., description="Conversation history")
 
 
 class QuizQuestionResponse(BaseModel):

@@ -132,6 +132,26 @@ const BarChart = React.memo<BarChartProps>(function BarChart({
       aria-label="Weekly CO2 emissions comparison bar chart"
     >
       <Bar data={chartData} options={options} />
+      {/* Screen-reader accessible data table */}
+      <table className="sr-only">
+        <caption>Weekly CO2 comparison (kg CO₂)</caption>
+        <thead>
+          <tr>
+            <th scope="col">Day</th>
+            <th scope="col">This Week</th>
+            <th scope="col">Last Week</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((d) => (
+            <tr key={d.day}>
+              <td>{d.day}</td>
+              <td>{d.thisWeek.toFixed(1)}</td>
+              <td>{d.lastWeek.toFixed(1)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 });
