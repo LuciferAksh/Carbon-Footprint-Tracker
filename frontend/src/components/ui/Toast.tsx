@@ -106,7 +106,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
   return (
     <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
-      <div className="fixed top-4 right-4 z-50 flex flex-col gap-2" aria-label="Notifications">
+      <div className="fixed top-4 right-4 z-50 flex flex-col gap-2" role="region" aria-label="Notifications">
         <AnimatePresence mode="sync">
           {toasts.map((toast) => (
             <ToastItem key={toast.id} toast={toast} onRemove={removeToast} />

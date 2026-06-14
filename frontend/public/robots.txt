@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://carbon-coach.web.app/sitemap.xml
+Sitemap: https://carbon-coach.web.app/sitemap_v2.xml

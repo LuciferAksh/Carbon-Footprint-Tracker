@@ -310,6 +310,7 @@ export default function CoachScreen() {
             <div
               ref={chatContainerRef}
               className="flex-1 overflow-y-auto space-y-4 mb-4 pr-1 scrollbar-thin"
+              role="log"
               aria-live="polite"
               aria-relevant="additions"
             >

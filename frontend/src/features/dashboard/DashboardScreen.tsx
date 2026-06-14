@@ -165,7 +165,7 @@ export default function DashboardScreen() {
       >
         <Card className="p-6 mb-4 text-center glass-primary animate-pulse-glow">
           <p className="text-dark-300 text-sm mb-1">This Week's Footprint</p>
-          <div className="flex items-baseline justify-center gap-1" aria-live="polite" aria-busy={!isCounterComplete}>
+          <div className="flex items-baseline justify-center gap-1" role="status" aria-live="polite" aria-busy={!isCounterComplete}>
             <span className="text-5xl font-bold text-primary-400 tabular-nums">
               {weeklyTotal.toFixed(1)}
             </span>

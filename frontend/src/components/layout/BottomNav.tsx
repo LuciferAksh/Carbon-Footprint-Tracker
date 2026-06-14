@@ -31,7 +31,6 @@ const BottomNav = React.memo(function BottomNav() {
   return (
     <nav
       className="fixed bottom-0 left-0 right-0 z-40 glass border-t border-dark-700/50 safe-bottom"
-      role="navigation"
       aria-label="Main navigation"
     >
       <div className="flex items-center justify-around max-w-lg mx-auto h-16">
@@ -57,13 +56,13 @@ const BottomNav = React.memo(function BottomNav() {
               )}
               <Icon
                 className={`w-5 h-5 transition-colors duration-200 ${
-                  isActive ? 'text-primary-400' : 'text-dark-500 group-hover:text-dark-300'
+                  isActive ? 'text-primary-400' : 'text-dark-400 group-hover:text-dark-300'
                 }`}
                 aria-hidden="true"
               />
               <span
                 className={`text-[10px] mt-1 font-medium transition-colors duration-200 ${
-                  isActive ? 'text-primary-400' : 'text-dark-500 group-hover:text-dark-300'
+                  isActive ? 'text-primary-400' : 'text-dark-400 group-hover:text-dark-300'
                 }`}
               >
                 {item.label}
